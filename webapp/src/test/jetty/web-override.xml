@@ -1,0 +1,15 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+	      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+
+    <context-param>
+        <param-name>plugins.xml</param-name>
+        <param-value>target/reststop/plugins.xml</param-value>
+    </context-param>
+    <context-param>
+        <param-name>pluginConfigurationDirectory</param-name>
+        <param-value>src/config</param-value>
+    </context-param>
+</web-app>
