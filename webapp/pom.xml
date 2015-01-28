@@ -28,6 +28,7 @@
                 <artifactId>reststop-maven-plugin</artifactId>
                 <version>${reststop.version}</version>
                 <configuration>
+                    <addDevelopmentPlugins>true</addDevelopmentPlugins>
                     <plugins>
                         <plugin>
                             <groupId>org.kantega.reststop</groupId>
@@ -62,7 +63,7 @@
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.0.5.v20130815</version>
+                <version>9.2.7.v20150116</version>
                 <configuration>
 
                     <systemProperties>
