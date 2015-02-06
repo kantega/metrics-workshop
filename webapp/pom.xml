@@ -41,11 +41,6 @@
                             <version>${reststop.version}</version>
                         </plugin>
                         <plugin>
-                            <groupId>org.kantega.reststop</groupId>
-                            <artifactId>reststop-metrics-plugin</artifactId>
-                            <version>${reststop.version}</version>
-                        </plugin>
-                        <plugin>
                             <groupId>org.kantega</groupId>
                             <artifactId>metrics-workshop-helloworld</artifactId>
                             <version>${project.version}</version>
