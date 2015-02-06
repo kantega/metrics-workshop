@@ -15,6 +15,7 @@
 
     <modules>
         <module>helloworld</module>
+        <module>metrics</module>
     </modules>
 
     <dependencies>

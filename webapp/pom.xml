@@ -50,6 +50,11 @@
                             <artifactId>metrics-workshop-helloworld</artifactId>
                             <version>${project.version}</version>
                         </plugin>
+                        <plugin>
+                            <groupId>org.kantega</groupId>
+                            <artifactId>metrics-workshop-metrics</artifactId>
+                            <version>${project.version}</version>
+                        </plugin>
                     </plugins>
                 </configuration>
                 <executions>
