@@ -16,11 +16,26 @@
 
     <properties>
         <reststop.version>1.10-SNAPSHOT</reststop.version>
+        <derby.version>10.9.1.0</derby.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.kantega</groupId>
+                <artifactId>metrics-workshop-api</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.kantega.reststop</groupId>
+                <artifactId>reststop-jaxrs-api</artifactId>
+                <version>${reststop.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
             <dependency>
                 <groupId>com.codahale.metrics</groupId>
                 <artifactId>metrics-servlets</artifactId>
@@ -31,6 +46,26 @@
                 <artifactId>javax.servlet-api</artifactId>
                 <version>3.1.0</version>
                 <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>4.1.4.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.derby</groupId>
+                <artifactId>derbynet</artifactId>
+                <version>${derby.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.derby</groupId>
+                <artifactId>derby</artifactId>
+                <version>${derby.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-dbcp</groupId>
+                <artifactId>commons-dbcp</artifactId>
+                <version>1.2.1</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -1,28 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <parent>
-        <groupId>org.kantega</groupId>
-        <artifactId>metrics-workshop</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-
-    <artifactId>webapp</artifactId>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.kantega</groupId>
+    <artifactId>metrics-workshop</artifactId>
     <version>1.0-SNAPSHOT</version>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.kantega.reststop</groupId>
-            <artifactId>reststop-core</artifactId>
-            <version>${reststop.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
+  </parent>
+  <artifactId>webapp</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <dependencies>
+    <dependency>
+      <groupId>org.kantega.reststop</groupId>
+      <artifactId>reststop-core</artifactId>
+      <version>${reststop.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.kantega.reststop</groupId>
+        <artifactId>reststop-maven-plugin</artifactId>
+        <version>${reststop.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>resolve-plugins</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <addDevelopmentPlugins>true</addDevelopmentPlugins>
+          <plugins>
             <plugin>
                 <groupId>org.kantega.reststop</groupId>
                 <artifactId>reststop-maven-plugin</artifactId>
@@ -71,41 +81,82 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.2.7.v20150116</version>
-                <configuration>
-
-                    <systemProperties>
-                        <systemProperty>
-                            <name>reststopPort</name>
-                            <value>8080</value>
-                        </systemProperty>
-                    </systemProperties>
-                    <webAppConfig>
-                        <overrideDescriptor>${basedir}/src/test/jetty/web-override.xml</overrideDescriptor>
-                        <contextPath>/</contextPath>
-                    </webAppConfig>
-                </configuration>
+              <groupId>org.kantega.reststop</groupId>
+              <artifactId>reststop-jersey-plugin</artifactId>
+              <version>${reststop.version}</version>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.16</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                        <configuration>
-                            <systemPropertyVariables>
-                                <reststopPort>${reststopPort}</reststopPort>
-                            </systemPropertyVariables>
-                        </configuration>
-                    </execution>
-                </executions>
+              <groupId>org.kantega</groupId>
+              <artifactId>metrics-workshop-helloworld</artifactId>
+              <version>${project.version}</version>
             </plugin>
-        </plugins>
-    </build>
+            <plugin>
+              <groupId>org.kantega</groupId>
+              <artifactId>metrics-workshop-metrics</artifactId>
+              <version>${project.version}</version>
+            </plugin>
+            <plugin>
+              <groupId>org.kantega</groupId>
+              <artifactId>metrics-workshop-metrics-ui</artifactId>
+              <version>${project.version}</version>
+            </plugin>
+            <plugin>
+              <groupId>org.kantega</groupId>
+              <artifactId>metrics-workshop-rest</artifactId>
+              <version>${project.version}</version>
+            </plugin>
+            <plugin>
+              <groupId>org.kantega</groupId>
+              <artifactId>metrics-workshop-api</artifactId>
+              <version>${project.version}</version>
+            </plugin>
+            <plugin>
+              <groupId>org.kantega</groupId>
+              <artifactId>metrics-workshop-dao</artifactId>
+              <version>${project.version}</version>
+            </plugin>
+            <plugin>
+              <groupId>org.kantega</groupId>
+              <artifactId>metrics-workshop-database</artifactId>
+              <version>${project.version}</version>
+            </plugin>
+          </plugins>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>9.2.7.v20150116</version>
+        <configuration>
+          <systemProperties>
+            <systemProperty>
+              <name>reststopPort</name>
+              <value>8080</value>
+            </systemProperty>
+          </systemProperties>
+          <webAppConfig>
+            <overrideDescriptor>${basedir}/src/test/jetty/web-override.xml</overrideDescriptor>
+            <contextPath>/</contextPath>
+          </webAppConfig>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>2.16</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+            <configuration>
+              <systemPropertyVariables>
+                <reststopPort>${reststopPort}</reststopPort>
+              </systemPropertyVariables>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>
