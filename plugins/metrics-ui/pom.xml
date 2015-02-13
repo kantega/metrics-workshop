@@ -37,12 +37,12 @@
     </properties>
 
     <dependencies>
-        <!--<dependency>-->
-            <!--<groupId>org.kantega.reststop</groupId>-->
-            <!--<artifactId>reststop-webjars-plugin</artifactId>-->
-            <!--<version>${reststop.version}</version>-->
-            <!--<scope>provided</scope>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.kantega.reststop</groupId>
+            <artifactId>reststop-webjars-plugin</artifactId>
+            <version>${reststop.version}</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
