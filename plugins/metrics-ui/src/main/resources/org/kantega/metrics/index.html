@@ -1,0 +1,32 @@
+<html ng-app="metricsUiApp">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="webjars/bootstrap/${versions.bootstrap}/css/bootstrap.css">
+    <link rel="stylesheet" href="webjars/bootstrap/${versions.bootstrap}/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="assets/metricsui/metricsui.css">
+
+    <script src="webjars/angularjs/${versions.angularjs}/angular.min.js"></script>
+    <script src="webjars/angularjs/${versions.angularjs}/angular-route.min.js"></script>
+    <script src="webjars/angular-ui-bootstrap/${versions.angular-ui-bootstrap}/ui-bootstrap.min.js"></script>
+    <script src="webjars/jquery/${versions.jquery}/jquery.min.js"></script>
+    <script src="webjars/highcharts/${versions.highcharts}/highcharts.js"></script>
+    <script src="webjars/highcharts-ng/${versions.highcharts-ng}/highcharts-ng.min.js"></script>
+    <script src="http://code.highcharts.com/stock/highstock.src.js"></script>
+
+    <script src="assets/metricsui/metricsui.js"></script>
+</head>
+<body>
+
+<h1>Metrics UI</h1>
+
+
+<div ng-controller="chartController">
+    <div class="row">
+        <highchart id="chart1" config="chartConfig" class="span10"></highchart>
+    </div>
+</div>
+<script src="webjars/bootstrap/${versions.bootstrap}/js/bootstrap.min.js"></script>
+
+</body>
+</html>

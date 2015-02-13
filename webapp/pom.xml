@@ -50,6 +50,16 @@
                             <artifactId>metrics-workshop-metrics</artifactId>
                             <version>${project.version}</version>
                         </plugin>
+                        <!--<plugin>-->
+                            <!--<groupId>org.kantega.reststop</groupId>-->
+                            <!--<artifactId>reststop-webjars-plugin</artifactId>-->
+                            <!--<version>${reststop.version}</version>-->
+                        <!--</plugin>-->
+                        <plugin>
+                            <groupId>org.kantega</groupId>
+                            <artifactId>metrics-workshop-metrics-ui</artifactId>
+                            <version>${project.version}</version>
+                        </plugin>
                     </plugins>
                 </configuration>
                 <executions>
