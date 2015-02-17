@@ -1,0 +1,39 @@
+<html ng-app="loadUiApp">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/webjars/bootstrap/${versions.bootstrap}/css/bootstrap.css">
+    <link rel="stylesheet" href="/webjars/bootstrap/${versions.bootstrap}/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/assets/loadui/loadui.css">
+
+    <script src="/webjars/angularjs/${versions.angularjs}/angular.min.js"></script>
+    <script src="/webjars/angular-ui-bootstrap/${versions.angular-ui-bootstrap}/ui-bootstrap.min.js"></script>
+    <script src="/webjars/jquery/2.1.3/jquery.min.js"></script>
+
+    <script src="/assets/loadui/loadui.js"></script>
+</head>
+<body>
+
+<h1>Load UI</h1>
+
+<div ng-controller="loadCtrl">
+
+    <div class="row">
+        <div class="col-md-12">
+            Url: <input type="text" class="form-control" ng-model="myUrl" aria-describedby="sizing-addon1">
+        </div>
+        <div class="col-md-6">
+            Interval, in milliseconds: <input type="number" class="form-control" ng-model="myInterval" aria-describedby="sizing-addon1">
+            Iterations: <input type="number" class="form-control" ng-model="myIterations" aria-describedby="sizing-addon1">
+        </div>
+        <div class="col-md-12">
+            <button type="button" class="btn btn-info"  ng-click="start(myInterval, myIterations, myUrl)"><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span> Start</button>
+        </div>
+    </div>
+</div>
+
+
+<script src="/webjars/bootstrap/${versions.bootstrap}/js/bootstrap.min.js"></script>
+
+</body>
+</html>
