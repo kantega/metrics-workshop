@@ -23,6 +23,7 @@ public class HelloworldResource {
     @Produces({"application/json", "application/xml" })
     public Hello hello() {
         metricRegistry.counter("World").inc();
+        metricRegistry.timer("World").getOneMinuteRate();
         return new Hello("Hello world");
     }
 }
