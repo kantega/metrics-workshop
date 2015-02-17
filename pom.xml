@@ -37,6 +37,13 @@
             </dependency>
 
             <dependency>
+                <groupId>org.kantega</groupId>
+                <artifactId>metrics-workshop-metrics</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>org.kantega.reststop</groupId>
                 <artifactId>reststop-jaxrs-api</artifactId>
                 <version>${reststop.version}</version>

@@ -1,5 +1,6 @@
 package org.kantega.metrics.rest;
 
+import com.codahale.metrics.MetricRegistry;
 import org.kantega.metrics.api.Blog;
 import org.kantega.metrics.api.BlogPost;
 import org.kantega.metrics.api.BlogPostComment;
@@ -25,11 +26,14 @@ public class BlogsResource {
     private final BlogDao blogDao;
     private final BlogPostDao blogPostDao;
     private final BlogPostCommentDao blogPostCommentDao;
+    private final MetricRegistry metricRegistry;
 
-    public BlogsResource(BlogDao blogDao, BlogPostDao blogPostDao, BlogPostCommentDao blogPostCommentDao) {
+    public BlogsResource(BlogDao blogDao, BlogPostDao blogPostDao, BlogPostCommentDao blogPostCommentDao,
+                         MetricRegistry metricRegistry) {
         this.blogDao = blogDao;
         this.blogPostDao = blogPostDao;
         this.blogPostCommentDao = blogPostCommentDao;
+        this.metricRegistry = metricRegistry;
     }
 
     @GET
@@ -61,7 +65,7 @@ public class BlogsResource {
     @Produces(MediaType.APPLICATION_JSON)
     public List<PostSummary> getBlogPosts(@PathParam("blogName")String blogName) {
 
-        return blogPostDao.getBlogPosts(getBlog(blogName)).stream()
+        return blogPostDao.getBlogPosts(blogDao.getBlogByName(blogName)).stream()
                 .map(p -> new PostSummary(p.getTitle(), p.getContent(), new Date(p.getPublishDate().toEpochMilli()), p.getCommentCount()))
                 .collect(Collectors.toList());
     }
@@ -70,7 +74,7 @@ public class BlogsResource {
     @Path("{blogName}/posts")
     @Produces(MediaType.APPLICATION_JSON)
     public Response addBlogPost(@PathParam("blogName") String blogName, NewPost newPost) {
-        Blog blog = getBlog(blogName);
+        Blog blog = blogDao.getBlogByName(blogName);
         BlogPost post = new BlogPost(blog);
         post.setTitle(newPost.getTitle());
         post.setContent(newPost.getContent());
@@ -83,14 +87,14 @@ public class BlogsResource {
     @Path("{blogName}/{postTitle}")
     @Produces(MediaType.APPLICATION_JSON)
     public Post getPost(@PathParam("blogName") String blogName, @PathParam("postTitle") String postTitle) {
-        return new Post(blogPostDao.getBlogPost(getBlog(blogName), postTitle));
+        return new Post(blogPostDao.getBlogPost(blogDao.getBlogByName(blogName), postTitle));
     }
 
     @GET
     @Path("{blogName}/{postTitle}/comments")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Comment> getCommments(@PathParam("blogName") String blogName, @PathParam("postTitle") String postTitle) {
-        List<BlogPostComment> comments = blogPostCommentDao.getComments(blogPostDao.getBlogPost(getBlog(blogName), postTitle));
+        List<BlogPostComment> comments = blogPostCommentDao.getComments(blogPostDao.getBlogPost(blogDao.getBlogByName(blogName), postTitle));
         return comments.stream()
                 .map(c -> new Comment(c)).collect(Collectors.toList());
     }
@@ -99,7 +103,7 @@ public class BlogsResource {
     @Path("{blogName}/{postTitle}/comments")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCommments(@PathParam("blogName") String blogName, @PathParam("postTitle") String postTitle, NewComment comment) {
-        BlogPost blogPost = blogPostDao.getBlogPost(getBlog(blogName), postTitle);
+        BlogPost blogPost = blogPostDao.getBlogPost(blogDao.getBlogByName(blogName), postTitle);
 
         BlogPostComment c = new BlogPostComment(blogPost);
         c.setAuthor(comment.getAuthor());
