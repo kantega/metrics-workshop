@@ -1,4 +1,4 @@
-<div ng-controller="BlogPostController" ng-style="backStyle">
+<div ng-controller="BlogPostController">
 
     Blog: <a href="#blogs/{{blog.name}}">{{blog.name}}</a>
 
@@ -19,27 +19,23 @@
             <a href="#" class="formCommentLink" data-postId="${post.blogPostId}">Add a comment</a>
         </span>
     </p>
-    <div class="commentForm" id="commentFor_${post.blogPostId}">
-        <form action="${blog.linkId}" method="post">
-            <input type="hidden" name="blogPostId" value="${post.blogPostId}">
+
+    <div class="commentForm">
+        <form>
             <p>
-                <label for="commentAuthor">Who are you</label>: <input id="commentAuthor" name="commentAuthor" type="text" size="80" value="John Doe">
+                <label for="commentAuthor">Who are you</label>: <input id="commentAuthor" name="commentAuthor" type="text" size="80" ng-model="comment.author">
             </p>
 
-            <textarea name="content" cols="80" rows="10">I really like...</textarea>
+            <textarea name="content" cols="80" rows="10" ng-model="comment.content"></textarea>
             <p>
-                <input type="submit" value="Add comment">
+                <input type="submit" value="Add comment" ng-click="addComment(blog, post, comment)">
             </p>
         </form>
     </div>
 
-    <c:forEach var="comment" items="${comments}">
-        <div class="comment">
-            <strong>${comment.author} said:</strong> (${post.getPublishDateInFormat('yyyy-MM-dd HH:mm')})
-            <p>
-                <c:out value="${comment.content}"/>
-            </p>
+        <div class="comment" ng-repeat="comment in comments">
+            <p><strong>{{comment.author}} said:</strong> ({{comment.publishDate | date:'medium' }})</p>
+            <div ng-bind-html="markdown(comment.content)"></div>
         </div>
-    </c:forEach>
 
 </div>

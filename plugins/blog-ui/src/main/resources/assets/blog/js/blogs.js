@@ -48,29 +48,49 @@ angular.module("blogs", ["ngRoute"])
         $scope.addPost = function(post) {
             $http.post("/r/blogs/" +$scope.blog.name +"/posts", post)
                 .success(function (data) {
-                    alert("posted")
+                    $location.path("/blogs/" + $scope.blog.name +"/" + $scope.post.title);
                 })
         }
 
     }])
-    .controller("BlogPostController", ["$scope", "$http", "$location", "$routeParams", "$sce", function ($scope, $http, $location, $routeParams, $sce) {
+    .controller("BlogPostController", ["$scope", "$rootScope", "$http", "$location", "$routeParams", "$sce", function ($scope, $rootScope, $http, $location, $routeParams, $sce) {
 
 
-        $http.get("/r/blogs/" + $routeParams.blogId)
-            .success(function (data) {
-                $scope.blog = data;
-                $scope.backStyle = {'background-color': data.color};
-            });
+        function loadData() {
+            $http.get("/r/blogs/" + $routeParams.blogId)
+                .success(function (data) {
+                    $scope.blog = data;
+                    $rootScope.backStyle = {'background-color': data.color};
+                });
 
-        $http.get("/r/blogs/" + $routeParams.blogId +"/" + $routeParams.blogPost)
-            .success(function (data) {
-                $scope.post = data;
-            })
+            $http.get("/r/blogs/" + $routeParams.blogId +"/" + $routeParams.blogPost)
+                .success(function (data) {
+                    $scope.post = data;
+                });
+
+
+            $http.get("/r/blogs/" + $routeParams.blogId +"/" + $routeParams.blogPost +"/comments")
+                .success(function (data) {
+                    $scope.comments = data;
+                });
+        }
+
+        loadData();
 
 
         $scope.markdown = function(content) {
-            return $sce.trustAsHtml(markdown.toHTML(content));
+            return  content ? $sce.trustAsHtml(markdown.toHTML(content)) :undefined;
+
         };
+
+        $scope.comment = {author: "John Doe", content: "I really likez..."};
+
+        $scope.addComment = function(blog, post, comment) {
+            $http.post("/r/blogs/" +blog.name +"/" + post.title + "/comments" , comment)
+                .success(function (data) {
+                    loadData();
+                })
+        }
 
     }])
     .config(function ($routeProvider, $locationProvider) {

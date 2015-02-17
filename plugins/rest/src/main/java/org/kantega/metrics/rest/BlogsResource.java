@@ -2,11 +2,11 @@ package org.kantega.metrics.rest;
 
 import org.kantega.metrics.api.Blog;
 import org.kantega.metrics.api.BlogPost;
+import org.kantega.metrics.api.BlogPostComment;
 import org.kantega.metrics.api.dao.BlogDao;
+import org.kantega.metrics.api.dao.BlogPostCommentDao;
 import org.kantega.metrics.api.dao.BlogPostDao;
-import org.kantega.metrics.rest.model.NewPost;
-import org.kantega.metrics.rest.model.Post;
-import org.kantega.metrics.rest.model.PostSummary;
+import org.kantega.metrics.rest.model.*;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -24,10 +24,12 @@ public class BlogsResource {
 
     private final BlogDao blogDao;
     private final BlogPostDao blogPostDao;
+    private final BlogPostCommentDao blogPostCommentDao;
 
-    public BlogsResource(BlogDao blogDao, BlogPostDao blogPostDao) {
+    public BlogsResource(BlogDao blogDao, BlogPostDao blogPostDao, BlogPostCommentDao blogPostCommentDao) {
         this.blogDao = blogDao;
         this.blogPostDao = blogPostDao;
+        this.blogPostCommentDao = blogPostCommentDao;
     }
 
     @GET
@@ -82,5 +84,28 @@ public class BlogsResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Post getPost(@PathParam("blogName") String blogName, @PathParam("postTitle") String postTitle) {
         return new Post(blogPostDao.getBlogPost(getBlog(blogName), postTitle));
+    }
+
+    @GET
+    @Path("{blogName}/{postTitle}/comments")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Comment> getCommments(@PathParam("blogName") String blogName, @PathParam("postTitle") String postTitle) {
+        List<BlogPostComment> comments = blogPostCommentDao.getComments(blogPostDao.getBlogPost(getBlog(blogName), postTitle));
+        return comments.stream()
+                .map(c -> new Comment(c)).collect(Collectors.toList());
+    }
+
+    @POST
+    @Path("{blogName}/{postTitle}/comments")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getCommments(@PathParam("blogName") String blogName, @PathParam("postTitle") String postTitle, NewComment comment) {
+        BlogPost blogPost = blogPostDao.getBlogPost(getBlog(blogName), postTitle);
+
+        BlogPostComment c = new BlogPostComment(blogPost);
+        c.setAuthor(comment.getAuthor());
+        c.setContent(comment.getContent());
+        c.setPublishDate(new Timestamp(System.currentTimeMillis()));
+        blogPostCommentDao.saveOrUpdate(c);
+        return Response.ok().build();
     }
 }
