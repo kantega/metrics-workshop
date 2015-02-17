@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html ng-app="blogs">
+<head>
+    <title>Kantega testing workshop - ${title}</title>
+    <link rel="stylesheet" type="text/css" href="/assets/blog/css/blog.css">
+    <link rel="stylesheet" type="text/css" href="/assets/blog/css/internett.css" media="screen"/>
+
+    <!--[if (lt IE 9)&(!IEMobile)]>
+    <link media="screen" rel="stylesheet" href="/assets/blog/css/bootstrap.css"/>
+    <link media="screen" rel="stylesheet" href="/assets/blog/css/editor.css"/>"/>
+    <link media="screen" rel="stylesheet" href="/assets/blog/css/global.css"/>"/>
+    <link media="screen" rel="stylesheet" href="/assets/blog/css/desktop.css"/>"/>
+    <![endif]-->
+
+    <script src="/webjars/angularjs/${versions.angularjs}/angular.min.js"></script>
+    <script src="/webjars/angularjs/${versions.angularjs}/angular-route.min.js"></script>
+    <script src="/webjars/angular-ui-bootstrap/${versions.angular-ui-bootstrap}/ui-bootstrap.min.js"></script>
+    <script src="/webjars/markdown-js/${versions.markdown-js}/markdown.js"></script>
+    <script src="/assets/blog/js/blogs.js"></script>
+</head>
+
+<body>
+
+<div id="page-container">
+    <div id="topsection" class="always-fullwidth">
+        <div id="header">
+            <div class="container">
+                <div class="row">
+                    <div class="span2">
+                        <a href="/" class="logoLink noLinkEffect" title="Til forsiden">
+                            <img src="/assets/blog/bitmaps/kantega_logo.png" alt="Kantega Logo">
+                        </a>
+                        <a href="#mobile-navigation" class="mobile-menu-anchor"></a>
+                    </div>
+
+                    <section class="hidden-phone">
+                        <nav id="desktop-navigation" class="always-fullwidth">
+                            <div class="span8" id="mainMenu">
+                                <ul>
+                                    <li>
+                                        <a title="Workshop" href="#/blogs">Workshop</a>
+                                    </li>
+                                    <li>
+                                        <a title="Blogs" href="#/blogs">Blogs</a>
+                                    </li>
+                                    <li>
+                                        <a title="Status" href="/status">Generator</a>
+                                    </li>
+                                    <li>
+                                        <a title="Admin" href="/metrics-ui">Stats</a>
+                                    </li>
+                                    <li>
+                                        <a title="Om Kantega" target="_blank" href="http://kantega.no/jobb/">About Kantega</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div> <!-- Topsection -->
+
+    <div id="mainsection">
+        <div class="container">
+            <div class="articleLayout" ng-style="backStyle">
+                <div class="content">
+<div ng-view></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footerspacer">&nbsp;</div>
+    </div>
+
+</div> <!-- Page container -->
+</body>
+</html>
+
+</body>
+
+</html>

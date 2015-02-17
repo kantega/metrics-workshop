@@ -1,0 +1,54 @@
+<div>
+    <h1>SuperBlog</h1>
+
+    <p class="ingress">
+        Welcome to Superblog!
+    </p>
+    <form action="blogs" method="POST" ng-controller="CreateBlogController">
+        <fieldset style="width: 500px">
+            <legend>Create new blog</legend>
+
+            <table summary="data entry for creating new blog">
+                <tr>
+                    <td>
+                        Blog name:
+                    </td>
+                    <td>
+                        <input type="text" name="blogname" ng-model="blog.name">
+
+                        <span class="missingField" ng-hide="blog.name">Name is required!</span>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>Background color:</td>
+                    <td>
+                        <select name="color" ng-model="blog.color">
+                            <option>#ffc0cb</option>
+                            <option>#add8e6</option>
+                            <option>#ffffe0</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <p><input type="submit" value="Create blog" ng-click="addBlog(blog)"></p>
+                    </td>
+                </tr>
+            </table>
+            <br/>
+        </fieldset>
+    </form>
+
+    <div ng-controller="ListBlogsController">
+        <p>Found {{blogs.length}} blogs:</p>
+
+        <ul>
+            <li ng-repeat="blog in blogs">
+                <a href="#blogs/{{encodeURIComponent(blog.name)}}">{{blog.name}}</a>
+            </li>
+        </ul>
+
+    </div>
+</div>
