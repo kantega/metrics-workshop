@@ -8,7 +8,7 @@
 
     <script src="/webjars/angularjs/${versions.angularjs}/angular.min.js"></script>
     <script src="/webjars/angular-ui-bootstrap/${versions.angular-ui-bootstrap}/ui-bootstrap.min.js"></script>
-    <script src="/webjars/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/webjars/jquery/${versions.jquery}/jquery.min.js"></script>
 
     <script src="/assets/loadui/loadui.js"></script>
 </head>
@@ -18,18 +18,36 @@
 
 <div ng-controller="loadCtrl">
 
-    <div class="row">
-        <div class="col-md-12">
-            Url: <input type="text" class="form-control" ng-model="myUrl" aria-describedby="sizing-addon1">
+
+    <div class="center">
+        <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="url">URL</span>
+            <input type="text" ng-model="myUrl" class="form-control" placeholder="myUrl">
         </div>
-        <div class="col-md-6">
-            Interval, in milliseconds: <input type="number" class="form-control" ng-model="myInterval" aria-describedby="sizing-addon1">
-            Iterations: <input type="number" class="form-control" ng-model="myIterations" aria-describedby="sizing-addon1">
+
+        <div class="input-group input-group-lg">
+          <span class="input-group-btn">
+              <button type="button" class="btn btn-danger btn-number" data-type="minus" ng-click="subUser()">
+                  <span class="glyphicon glyphicon-user"></span>
+              </button>
+          </span>
+            <input type="text" class="form-control input-number" ng-model="myUsers" value="{{myUsers}}" min="1" max="1000">
+          <span class="input-group-btn">
+              <button type="button" class="btn btn-success btn-number" data-type="plus" ng-click="addUser()">
+                  <span class="glyphicon glyphicon-user"></span>
+              </button>
+          </span>
         </div>
-        <div class="col-md-12">
-            <button type="button" class="btn btn-info"  ng-click="start(myInterval, myIterations, myUrl)"><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span> Start</button>
+        <div class="btn-group btn-group-lg btn-group-justified" role="group">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-info" ng-disabled="running" ng-click="start(myUsers, myUrl)">Start</button>
+            </div>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-info" ng-disabled="!running"  ng-click="stop()">Stop</button>
+            </div>
         </div>
     </div>
+
 </div>
 
 
