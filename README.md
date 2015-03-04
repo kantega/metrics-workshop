@@ -35,9 +35,9 @@ __IntelliJ IDEA & Maven__
     * If asked about "No Maven installation..", click 'configuration dialog', and set 'Maven home location' to installed Maven home dir
 6. Open up your favorite browser to [http://localhost:8080](http://localhost:8080)
 
-__Eclipse__
+__Eclipse (Luna required)__
 
-1. Download and install [Eclipse with Java 8 support](https://www.eclipse.org/downloads/index-java8.php)
+1. Download and install [Eclipse IDE for Java EE Developers (Luna)](https://eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/lunar)
 2. Import -> Maven -> Existing Maven Projects
     * Root Directory: Select metrics-workshop path -> Next -> Finish
 3. Under 'Project Explorer Window' Select project webapp, then go to Run Menu -> Debug As -> Maven Build (first one)
