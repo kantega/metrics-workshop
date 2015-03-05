@@ -1,0 +1,93 @@
+#section("content")
+<h1 class="extruded">Getting started</h1>
+
+<h3>Create your own blog</h3>
+
+<p id="yesblog" style="display: none">
+    YES! You have successfully created the blog <span style="font-weight: bold" class="blogname"></span>
+</p>
+<p id="noblog" style="display: none">
+    FAIL! You have not yet created any blog
+</p>
+
+<p id="yespost" style="display: none">
+    YES! You have successfully created the blog post <span style="font-weight: bold" class="blogposttitle"></span>
+</p>
+<p id="nopost" style="display: none">
+    FAIL! You have not yet created any blog post in <span style="font-weight: bold" class="blogname"></span>
+</p>
+
+
+<p id="yescomment" style="display: none">
+    YES! You have successfully added a comment to blog post <span style="font-weight: bold" class="blogposttitle"></span>
+    ( As <span style="font-weight: bold" class="commentauthor"></span> )
+</p>
+<p id="nocomment" style="display: none">
+    FAIL! You have not yet added any comment to the blog post <span style="font-weight: bold" class="blogposttitle"></span>
+</p>
+
+
+<div id="done" style="display: none;">
+    <div id="video"></div>
+    <p></p>
+    <p>
+        There are never bugs in your code, right? <a href="">Next task</a>
+    </p>
+</div>
+
+
+
+<script>
+
+    function forEach(obj, each) {
+        for(var i = 0; i < obj.length; i++) {
+            each(obj[i]);
+        }
+    }
+    function analyze(url, ready) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                ready(JSON.parse(xhr.responseText));
+            }
+        }
+        xhr.send(null);
+    }
+
+    analyze("/r/blogs",function (blogs) {
+        if (blogs.length == 0) {
+            document.querySelector("#noblog").style.display = "block";
+        } else {
+            forEach(document.querySelectorAll(".blogname"), function(e) {e.innerText = blogs[0].name;});
+
+            document.querySelector("#yesblog").style.display = "block";
+
+            analyze("/r/blogs/" + encodeURIComponent(blogs[0].name) +"/posts",function (posts) {
+                if (posts.length == 0) {
+                    document.querySelector("#nopost").style.display = "block";
+                } else {
+                    forEach(document.querySelectorAll(".blogposttitle"), function(e) {e.innerText = posts[0].title;});
+                    document.querySelector("#yespost").style.display = "block";
+
+                    analyze("/r/blogs/" + encodeURIComponent(blogs[0].name) +"/" + encodeURIComponent(posts[0].title) +"/comments"
+                            , function (comments) {
+                                if (comments.length == 0) {
+                                    document.querySelector("#nocomment").style.display = "block";
+                                } else {
+                                    forEach(document.querySelectorAll(".commentauthor"), function(e) {e.innerText = comments[0].author;});
+                                    document.querySelector("#yescomment").style.display = "block";
+                                    document.querySelector("#done").style.display = "block";
+                                    document.querySelector("#video").innerHTML='<iframe width="420" height="315" src="https://www.youtube.com/embed/UjZQGRATlwA?autoplay=1" frameborder="0" allowfullscreen></iframe>';
+                                }
+                            });
+                }
+            });
+        }
+    });
+
+
+
+</script>
+#end
+#parse("design.html")
