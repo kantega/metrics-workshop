@@ -16,8 +16,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 .navbar-custom .navbar-brand,
 .navbar-custom .navbar-nav li a {
-    line-height: 33px;
-    height: 33px;
+    line-height: 27px;
+    height: 27px;
     padding-top: 0;
 }
 
@@ -54,6 +54,8 @@ h1, h2, h3, h4, h5, h6 {
 .navbar-custom .navbar-nav > li{
     margin-left:3px;
     margin-right:3px;
+    margin-top:3px;
+    margin-bottom:3px;
 }
 
 body {
