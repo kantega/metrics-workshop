@@ -25,40 +25,20 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>metrics-workshop-workshop-ui</artifactId>
+    <artifactId>metrics-workshop-templates</artifactId>
+
 
     <dependencies>
+
         <dependency>
             <groupId>org.kantega</groupId>
             <artifactId>metrics-workshop-api</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>org.kantega.reststop</groupId>
-            <artifactId>reststop-webjars-plugin</artifactId>
-            <version>${reststop.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>angularjs</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrap</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>angular-ui-bootstrap</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <scope>provided</scope>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.7</version>
         </dependency>
     </dependencies>
 </project>

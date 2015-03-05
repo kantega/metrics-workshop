@@ -4,7 +4,7 @@
     <p class="ingress">
         Welcome to Superblog!
     </p>
-    <form action="blogs" method="POST" ng-controller="CreateBlogController">
+    <form ng-controller="CreateBlogController">
         <fieldset style="width: 500px">
             <legend>Create new blog</legend>
 
@@ -16,7 +16,7 @@
                     <td>
                         <input type="text" name="blogname" ng-model="blog.name">
 
-                        <span class="missingField" ng-hide="blog.name">Name is required!</span>
+                        <span class="missingField" ng-hide="blog.name">*</span>
 
                     </td>
                 </tr>
