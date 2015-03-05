@@ -23,6 +23,7 @@
         <angularjs-bootstrap.version>0.12.1</angularjs-bootstrap.version>
         <hightcharts.version>4.0.4</hightcharts.version>
         <hightcharts-ng.version>0.0.7</hightcharts-ng.version>
+        <highstock.version>2.0.4</highstock.version>
         <bootstrap.version>3.3.2</bootstrap.version>
     </properties>
 
@@ -89,6 +90,11 @@
                 <groupId>org.webjars</groupId>
                 <artifactId>highcharts</artifactId>
                 <version>${hightcharts.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>highstock</artifactId>
+                <version>${highstock.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.webjars</groupId>

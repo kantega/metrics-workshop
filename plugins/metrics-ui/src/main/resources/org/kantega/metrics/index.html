@@ -11,21 +11,25 @@
     <script src="/webjars/angular-ui-bootstrap/${versions.angular-ui-bootstrap}/ui-bootstrap.min.js"></script>
     <script src="/webjars/jquery/${versions.jquery}/jquery.min.js"></script>
     <script src="/webjars/highcharts/${versions.highcharts}/highcharts.js"></script>
+    <script src="/webjars/highcharts/${versions.highcharts}/highcharts-more.js"></script>
     <script src="/webjars/highcharts-ng/${versions.highcharts-ng}/highcharts-ng.min.js"></script>
-    <script src="http://code.highcharts.com/stock/highstock.src.js"></script>
+    <script src="/webjars/highcharts-ng/${versions.highstock}/highstock.js"></script>
 
     <script src="/assets/metricsui/metricsui.js"></script>
 </head>
 <body>
 
-<h1>Metrics UI</h1>
+<div class="container" ng-controller="chartController">
+    <h1>Metrics UI</h1>
 
-
-<div ng-controller="chartController">
     <div class="row">
-        <highchart id="chart1" config="chartConfig" class="span10"></highchart>
+        <highchart id="chart1" config="chart1Config"></highchart>
+    </div>
+    <div class="row">
+        <highchart id="chart2" config="chart2Config"></highchart>
     </div>
 </div>
+
 <script src="/webjars/bootstrap/${versions.bootstrap}/js/bootstrap.min.js"></script>
 
 </body>

@@ -49,6 +49,10 @@
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
+            <artifactId>highstock</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
             <artifactId>highcharts-ng</artifactId>
         </dependency>
         <dependency>
