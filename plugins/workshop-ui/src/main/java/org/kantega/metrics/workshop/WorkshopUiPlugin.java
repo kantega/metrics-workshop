@@ -27,7 +27,7 @@ public class WorkshopUiPlugin extends DefaultReststopPlugin {
 
         templateServlet("index.html", "/workshop-ui/");
         templateServlet("gettingstarted.html", "/workshop-ui/gettingstarted");
-
+        templateServlet("addcounter.html", "/workshop-ui/addcounter");
 
     }
 

@@ -1,0 +1,109 @@
+#section("content")
+<h1 class="extruded">Adding a counter</h1>
+
+
+<p>
+    Your task is to add a counter to the MetricsRegistry.
+</p>
+
+<p>
+    This counter should increment by one each time a user
+    lists the blogs using the <a href="/r/blogs">/r/blogs</a> endpoint in the REST API.
+</p>
+
+<p>
+    Please name your counter <code>API.blogs</code>
+</p>
+
+<h2>Test results:</h2>
+
+<p id="yescounter" style="display: none">
+    YES! You have successfully created the counter <code>API.blogs</code>. The current count is <span class="currentcount"></span>
+</p>
+<p id="nocounter" style="display: none">
+    FAIL! You have not yet created the counter <code>API.blogs</code>
+</p>
+
+<p id="yesinc" style="display: none">
+    YES! Your counter <code>API.blogs</code> increments by one for request. The current count is <span class="currentcount"></span>, the previous count was <span class="previouscount">
+</p>
+
+<p id="noinc" style="display: none">
+    FAIL! Your counter <code>API.blogs</code> does not increments by one for each request. The current count is <span class="currentcount"></span>, the previous count was <span class="previouscount">
+</p>
+
+
+<div id="done" style="display: none;">
+    <div id="video"></div>
+    <p></p>
+    <p>
+        We all love developers, right? <a href="timeblogposts">Next task</a>
+    </p>
+</div>
+
+
+
+<script>
+
+    function forEach(obj, each) {
+        for(var i = 0; i < obj.length; i++) {
+            each(obj[i]);
+        }
+    }
+    function analyze(url, ready) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                ready(JSON.parse(xhr.responseText));
+            }
+        }
+        xhr.send(null);
+    }
+
+    analyze("/r/blogs", function() {
+        analyze("/metrics/", function (metrics) {
+            var metric = metrics.counters["API.blogs"];
+            if (!metric) {
+                document.querySelector("#nocounter").style.display = "block";
+            } else {
+
+                var firstCount = metric.count;
+
+                document.querySelector("#yescounter").style.display = "block";
+
+                forEach(document.querySelectorAll(".currentcount"), function (e) {
+                    e.innerText = firstCount;
+                });
+
+
+                analyze("/r/blogs", function() {
+                    analyze("/metrics/", function (metrics) {
+                        var metric = metrics.counters["API.blogs"];
+
+                        var secondCount = metric.count;
+
+                        forEach(document.querySelectorAll(".currentcount"), function (e) {
+                            e.innerText = secondCount;
+                        });
+
+                        forEach(document.querySelectorAll(".previouscount"), function (e) {
+                            e.innerText = firstCount;
+                        });
+
+                        if(secondCount != firstCount +1) {
+                            document.querySelector("#noinc").style.display = "block";
+                        } else {
+                            document.querySelector("#yesinc").style.display = "block";
+                            document.querySelector("#done").style.display = "block";
+                            document.querySelector("#video").innerHTML='<iframe width="420" height="315" src="https://www.youtube.com/embed/N1zxDa3t0fg?start=11&autoplay=1" frameborder="0" allowfullscreen></iframe>';
+                        }
+                    });
+                })
+            }
+        });
+    });
+
+</script>
+#end
+#parse("design.html")
