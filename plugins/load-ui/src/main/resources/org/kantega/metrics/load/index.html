@@ -4,6 +4,7 @@
 
     <link rel="stylesheet" href="/webjars/bootstrap/${versions.bootstrap}/css/bootstrap.css">
     <link rel="stylesheet" href="/webjars/bootstrap/${versions.bootstrap}/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/assets/workshopui/workshopui.css">
     <link rel="stylesheet" href="/assets/loadui/loadui.css">
 
     <script src="/webjars/angularjs/${versions.angularjs}/angular.min.js"></script>
@@ -13,42 +14,69 @@
     <script src="/assets/loadui/loadui.js"></script>
 </head>
 <body>
-
-<h1>Load UI</h1>
-
-<div ng-controller="loadCtrl">
-
-
-    <div class="center">
-        <div class="input-group input-group-lg">
-            <span class="input-group-addon" id="url">URL</span>
-            <input type="text" ng-model="myUrl" class="form-control" placeholder="myUrl">
+<nav class="navbar navbar-default navbar-custom">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+                <img alt="Brand" style="max-width:100px;" src="/assets/blog/bitmaps/kantega_logo.png" alt="Kantega Logo">
+            </a>
         </div>
 
-        <div class="input-group input-group-lg">
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/workshop-ui/">Workshop</a></li>
+                <li><a href="/#/blogs">Blogs</a></li>
+                <li class="active"><a href="#">Generator</a></li>
+                <li><a href="/metrics-ui/">Stats</a></li>
+                <li><a title="Om Kantega" target="_blank" href="http://kantega.no/jobb/">About Kantega</a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+<div class="container container-custom">
+    <h1>Load UI</h1>
+
+    <div ng-controller="loadCtrl">
+
+        <div class="center">
+            <div class="input-group input-group-lg">
+                <span class="input-group-addon" id="url">URL</span>
+                <input type="text" ng-model="myUrl" class="form-control" placeholder="myUrl">
+            </div>
+
+            <div class="input-group input-group-lg">
           <span class="input-group-btn">
               <button type="button" class="btn btn-danger btn-number" data-type="minus" ng-click="subUser()">
                   <span class="glyphicon glyphicon-user"></span>
               </button>
           </span>
-            <input type="text" class="form-control input-number" ng-model="myUsers" value="{{myUsers}}" min="1" max="1000">
+                <input type="text" class="form-control input-number" ng-model="myUsers" value="{{myUsers}}" min="1" max="1000">
           <span class="input-group-btn">
               <button type="button" class="btn btn-success btn-number" data-type="plus" ng-click="addUser()">
                   <span class="glyphicon glyphicon-user"></span>
               </button>
           </span>
-        </div>
-        <div class="btn-group btn-group-lg btn-group-justified" role="group">
-            <div class="btn-group" role="group">
-                <button type="button" class="btn btn-info" ng-disabled="running" ng-click="start(myUsers, myUrl)">Start</button>
             </div>
-            <div class="btn-group" role="group">
-                <button type="button" class="btn btn-info" ng-disabled="!running"  ng-click="stop()">Stop</button>
+            <div class="btn-group btn-group-lg btn-group-justified" role="group">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-info" ng-disabled="running" ng-click="start(myUsers, myUrl)">Start</button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-info" ng-disabled="!running"  ng-click="stop()">Stop</button>
+                </div>
             </div>
         </div>
-    </div>
 
+    </div>
 </div>
+
 
 
 <script src="/webjars/bootstrap/${versions.bootstrap}/js/bootstrap.min.js"></script>
