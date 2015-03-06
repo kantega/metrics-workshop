@@ -2,6 +2,7 @@ package org.kantega.metrics.dao;
 
 import org.kantega.metrics.api.Blog;
 import org.kantega.metrics.api.BlogPost;
+import org.kantega.metrics.api.ThreadLocalContext;
 import org.kantega.metrics.api.dao.BlogPostDao;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -57,6 +58,15 @@ public class JdbcBlogPostDao implements BlogPostDao {
      * @return List of blog posts in this blog
      */
     public List<BlogPost> getBlogPosts(Blog blog) {
+        Long delay = (Long) ThreadLocalContext.get("getPostsDelay");
+        if(delay != null) {
+            try {
+                Thread.sleep(delay);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
         return getBlogPosts("where blogpost.blogid=?", blog.getId());
     }
 

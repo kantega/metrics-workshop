@@ -3,7 +3,7 @@
 
 
 <p>
-    Your task is to add a counter to the MetricsRegistry.
+    Your task is to add a counter to the MetricRegistry.
 </p>
 
 <p>
@@ -25,11 +25,11 @@
 </p>
 
 <p id="yesinc" style="display: none">
-    YES! Your counter <code>API.blogs</code> increments by one for request. The current count is <span class="currentcount"></span>, the previous count was <span class="previouscount">
+    YES! Your counter <code>API.blogs</code> increments by one for request. The current count is <span class="currentcount"></span>, the previous count was <span class="previouscount"></span>
 </p>
 
 <p id="noinc" style="display: none">
-    FAIL! Your counter <code>API.blogs</code> does not increments by one for each request. The current count is <span class="currentcount"></span>, the previous count was <span class="previouscount">
+    FAIL! Your counter <code>API.blogs</code> does not increment by one for each request. The current count is <span class="currentcount"></span>, the previous count was <span class="previouscount"></span>
 </p>
 
 
@@ -52,7 +52,7 @@
     }
     function analyze(url, ready) {
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", url, true);
+        xhr.open("GET", url, false);
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4) {
                 ready(JSON.parse(xhr.responseText));
@@ -70,6 +70,8 @@
 
                 var firstCount = metric.count;
 
+                console.log("First count is : " + firstCount)
+
                 document.querySelector("#yescounter").style.display = "block";
 
                 forEach(document.querySelectorAll(".currentcount"), function (e) {
@@ -82,6 +84,8 @@
                         var metric = metrics.counters["API.blogs"];
 
                         var secondCount = metric.count;
+
+                        console.log("Second count is : " + secondCount)
 
                         forEach(document.querySelectorAll(".currentcount"), function (e) {
                             e.innerText = secondCount;

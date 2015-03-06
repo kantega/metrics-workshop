@@ -1,12 +1,14 @@
 
 package org.kantega.metrics.workshop;
 
+import org.kantega.metrics.api.ThreadLocalContext;
 import org.kantega.metrics.api.templates.TemplateRenderer;
 import org.kantega.reststop.api.DefaultReststopPlugin;
+import org.kantega.reststop.api.FilterPhase;
 import org.kantega.reststop.api.Reststop;
 import org.kantega.reststop.webjars.WebjarsVersions;
 
-import javax.servlet.ServletException;
+import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +30,9 @@ public class WorkshopUiPlugin extends DefaultReststopPlugin {
         templateServlet("index.html", "/workshop-ui/");
         templateServlet("gettingstarted.html", "/workshop-ui/gettingstarted");
         templateServlet("addcounter.html", "/workshop-ui/addcounter");
+        templateServlet("timeblogposts.html", "/workshop-ui/timeblogposts");
 
+        addServletFilter(reststop.createFilter(new SlowFilter(), "/r/*", FilterPhase.PRE_AUTHENTICATION));
     }
 
     private void templateServlet(String file, String path) {
@@ -51,6 +55,34 @@ public class WorkshopUiPlugin extends DefaultReststopPlugin {
                     .template("org/kantega/metrics/workshop/" + file, Charset.forName("utf-8"));
             versions.entrySet().forEach((e) -> renderer.addAttribute(e.getKey().replace('.', '_'), e.getValue()));
             renderer.render(resp.getWriter());
+
+        }
+    }
+
+    private class SlowFilter implements Filter {
+        @Override
+        public void init(FilterConfig filterConfig) throws ServletException {
+
+        }
+
+        @Override
+        public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+            HttpServletRequest req = (HttpServletRequest) request;
+            HttpServletResponse resp = (HttpServletResponse) response;
+
+            try {
+                String header = req.getHeader("X-GetPostsDelay");
+                if(header != null) {
+                    ThreadLocalContext.set("getPostsDelay", Long.parseLong(header));
+                }
+                chain.doFilter(req, resp);
+            } finally {
+                ThreadLocalContext.clear("getPostsDelay");
+            }
+        }
+
+        @Override
+        public void destroy() {
 
         }
     }
