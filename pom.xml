@@ -25,6 +25,7 @@
         <hightcharts-ng.version>0.0.7</hightcharts-ng.version>
         <highstock.version>2.0.4</highstock.version>
         <bootstrap.version>3.3.2</bootstrap.version>
+        <metrics.version>3.0.2</metrics.version>
     </properties>
 
     <dependencyManagement>
@@ -53,7 +54,12 @@
             <dependency>
                 <groupId>com.codahale.metrics</groupId>
                 <artifactId>metrics-servlets</artifactId>
-                <version>3.0.2</version>
+                <version>${metrics.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.codahale.metrics</groupId>
+                <artifactId>metrics-graphite</artifactId>
+                <version>${metrics.version}</version>
             </dependency>
             <dependency>
                 <groupId>javax.servlet</groupId>
