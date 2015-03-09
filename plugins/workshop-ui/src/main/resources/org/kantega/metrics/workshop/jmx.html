@@ -1,0 +1,72 @@
+#section("content")
+<h1 class="extruded">Export metrics using JMX</h1>
+
+
+<p>
+    Your task is to export the metric data over <a href="http://www.oracle.com/technetwork/java/javase/tech/javamanagement-140525.html">JMX</a>
+    This allows you to inspect the metrics in any running JVM using tools such as <code>jconsole</code>
+</p>
+
+<p>
+    Use
+    <a href="http://lmgtfy.com/?q=metrics+Reporting+Via+JMX">Metric's Reporting Via JMX</a> feature to export metrics over JMX.
+    You should add this code to <code>MetricsPlugin.java</code>
+</p>
+
+
+<p id="yesjmx" style="display: none;">
+    YES! Your metrics are avaliable over JMX! <pre class="metricsNames" style="margin-left: 1em"></pre>
+</p>
+<p id="nojmx" style="display: none">
+    FAIL! Your metric are NOT available over JMX!
+</p>
+
+<div id="done" style="display: none;">
+    <div id="video"></div>
+    <p></p>
+    <p>
+        Did he also mention... developers?<a href=".">Now, choose one of the 7</a>
+    </p>
+</div>
+<script>
+
+    (function() {
+
+        function forEach(obj, each) {
+            for(var i = 0; i < obj.length; i++) {
+                each(obj[i]);
+            }
+        }
+
+        function analyze(url, ready) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url, false);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    ready(JSON.parse(xhr.responseText));
+                }
+            }
+            xhr.send(null);
+        }
+
+
+        analyze("/jmxdetector", function(data) {
+            if(data.metricsBeans.length > 0) {
+                document.querySelector("#yesjmx").style.display = "block";
+                forEach(document.querySelectorAll(".metricsNames"), function (e) {
+                    e.innerText = JSON.stringify(data.metricsBeans);
+                });
+
+                document.querySelector("#done").style.display = "block";
+                document.querySelector("#video").innerHTML='<iframe width="420" height="315" src="https://www.youtube.com/embed/8To-6VIJZRE?autoplay=1" frameborder="0" allowfullscreen></iframe>';
+            } else {
+                document.querySelector("#nojmx").style.display = "block";
+            }
+        });
+
+    })();
+
+</script>
+
+#end
+#parse("design.html")
