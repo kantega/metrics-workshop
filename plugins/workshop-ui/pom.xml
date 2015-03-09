@@ -33,6 +33,13 @@
             <artifactId>metrics-workshop-api</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.kantega</groupId>
+            <artifactId>metrics-workshop-metrics</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+
+        <dependency>
             <groupId>org.kantega.reststop</groupId>
             <artifactId>reststop-webjars-plugin</artifactId>
             <version>${reststop.version}</version>

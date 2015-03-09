@@ -1,0 +1,90 @@
+#section("content")
+<h1 class="extruded">Graphing memory usage over time</h1>
+
+
+<p>
+    Your task is to chart Java heap memory usage as a <a href="">time series<a>
+</p>
+<p>
+    Fetch the
+    <a href="/metrics/">/metrics/</a> JSON endpoint once per second
+    and add that sample to your chart using the <a href="http://api.highcharts.com/highcharts#Series">addPoint</a> API.
+</p>
+
+<iframe width="800" height="400" src="/chart.html">
+
+</iframe>
+
+
+<p id="yesdata" style="display: none;">
+    YES! After <span class="elapsed"></span> seconds you have added <span class="numdata">0</span> data points to your chart series
+</p>
+<p id="nodata" style="display: none">
+    FAIL! After <span class="elapsed"></span> seconds, you have added <span class="numdata">0</span> data points to your chart series
+</p>
+
+<div id="done" style="display: none;">
+    <div id="video"></div>
+    <p></p>
+    <p>
+        "WHO SAID SIT DOWN!!!!??!?!!!?" <a href="jmx">Next task</a>
+    </p>
+</div>
+<script>
+
+    (function() {
+
+        function forEach(obj, each) {
+            for(var i = 0; i < obj.length; i++) {
+                each(obj[i]);
+            }
+        }
+
+        var iframe = document.querySelector("iframe");
+        iframe.addEventListener("load", function() {
+
+            var start = new Date().getTime();
+
+            var done = false;
+
+            setInterval(function() {
+
+                var doc = iframe.contentWindow.document;
+
+                //alert()
+                var a = iframe.contentWindow.angular;
+                var e = doc.querySelector("#memoryGraph")
+
+                var scope = a.element(e).scope()
+
+                var dataSize = scope.memoryGraph.series[0].data.length;
+
+                forEach(document.querySelectorAll(".elapsed"), function (e) {
+                    e.innerText = parseInt((new Date().getTime()-start)/1000);
+                });
+
+                forEach(document.querySelectorAll(".numdata"), function (e) {
+                    e.innerText = dataSize;
+                });
+
+                if(dataSize == 0) {
+                    document.querySelector("#nodata").style.display = "block";
+                } else {
+                    document.querySelector("#yesdata").style.display = "block";
+
+                    if(!done) {
+                        document.querySelector("#done").style.display = "block";
+                        document.querySelector("#video").innerHTML='<iframe width="420" height="315" src="https://www.youtube.com/embed/I14b-C67EXY?start=11&autoplay=1" frameborder="0" allowfullscreen></iframe>';
+                        done = true;
+                    }
+
+                }
+            }, 1000)
+
+        })
+    })();
+
+</script>
+
+#end
+#parse("design.html")

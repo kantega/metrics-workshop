@@ -1,6 +1,7 @@
 
 package org.kantega.metrics.workshop;
 
+import com.codahale.metrics.MetricRegistry;
 import org.kantega.metrics.api.ThreadLocalContext;
 import org.kantega.metrics.api.templates.TemplateRenderer;
 import org.kantega.reststop.api.DefaultReststopPlugin;
@@ -22,7 +23,7 @@ public class WorkshopUiPlugin extends DefaultReststopPlugin {
     private final WebjarsVersions webjarsVersions;
     private final TemplateRenderer templateRenderer;
 
-    public WorkshopUiPlugin(Reststop reststop, WebjarsVersions webjarsVersions, TemplateRenderer templateRenderer) {
+    public WorkshopUiPlugin(Reststop reststop, WebjarsVersions webjarsVersions, TemplateRenderer templateRenderer, MetricRegistry metricRegistry) {
         this.reststop = reststop;
         this.webjarsVersions = webjarsVersions;
         this.templateRenderer = templateRenderer;
@@ -32,8 +33,11 @@ public class WorkshopUiPlugin extends DefaultReststopPlugin {
         templateServlet("addcounter.html", "/workshop-ui/addcounter");
         templateServlet("timeblogposts.html", "/workshop-ui/timeblogposts");
         templateServlet("memoryusage.html", "/workshop-ui/memoryusage");
+        templateServlet("memory_over_time.html", "/workshop-ui/memory_over_time");
 
         addServletFilter(reststop.createFilter(new SlowFilter(), "/r/*", FilterPhase.PRE_AUTHENTICATION));
+
+        addServletFilter(reststop.createServletFilter(new BlogRateServlet(metricRegistry), "/blog-rate-1-min"));
     }
 
     private void templateServlet(String file, String path) {
