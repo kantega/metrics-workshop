@@ -38,6 +38,8 @@ public class WorkshopUiPlugin extends DefaultReststopPlugin {
         addServletFilter(reststop.createFilter(new SlowFilter(), "/r/*", FilterPhase.PRE_AUTHENTICATION));
 
         addServletFilter(reststop.createServletFilter(new BlogRateServlet(metricRegistry), "/blog-rate-1-min"));
+
+        addServletFilter(reststop.createServletFilter(new JmxDetectorServlet(), "/jmxdetector"));
     }
 
     private void templateServlet(String file, String path) {
