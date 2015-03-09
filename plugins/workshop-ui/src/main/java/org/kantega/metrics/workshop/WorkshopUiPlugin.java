@@ -31,6 +31,7 @@ public class WorkshopUiPlugin extends DefaultReststopPlugin {
         templateServlet("gettingstarted.html", "/workshop-ui/gettingstarted");
         templateServlet("addcounter.html", "/workshop-ui/addcounter");
         templateServlet("timeblogposts.html", "/workshop-ui/timeblogposts");
+        templateServlet("memoryusage.html", "/workshop-ui/memoryusage");
 
         addServletFilter(reststop.createFilter(new SlowFilter(), "/r/*", FilterPhase.PRE_AUTHENTICATION));
     }
