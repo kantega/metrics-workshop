@@ -1,5 +1,6 @@
 package org.kantega.reststop.metrics;
 
+import com.codahale.metrics.JmxReporter;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.jvm.*;
 import com.codahale.metrics.servlets.MetricsServlet;
@@ -23,6 +24,7 @@ public class MetricsPlugin extends DefaultReststopPlugin {
 
     @Export
     private final MetricRegistry metricRegistry;
+    private JmxReporter jmxReporter;
 
     public MetricsPlugin(Reststop reststop, ServletContext servletContext) throws ServletException {
 
@@ -43,9 +45,15 @@ public class MetricsPlugin extends DefaultReststopPlugin {
         registry.registerAll(new BufferPoolMetricSet(ManagementFactory.getPlatformMBeanServer()));
         registry.registerAll(new ThreadStatesGaugeSet());
 
+        // TODO: Create and start the jmxReporter
+
         return registry;
     }
 
+    @Override
+    public void destroy() {
+        // TODO: Stop the jmxReporter
+    }
 
     private class MetricsServletConfig implements ServletConfig {
         private final ServletContext servletContext;
