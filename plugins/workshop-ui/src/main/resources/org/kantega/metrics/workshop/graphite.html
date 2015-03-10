@@ -12,16 +12,14 @@
         </p>
 
         <p>
-            When Docker has been installed run the following command:<br>
+            When Docker has been installed run the following commands:<br>
 
-            <code>sudo docker pull hopsoft/graphite-statsd</code><br><br>
+            <code>sudo docker pull hopsoft/graphite-statsd</code><br>
+            <code>sudo docker run -d   --name graphite   -p 80:80   -p 2003:2003   -p 8125:8125/udp   hopsoft/graphite-statsd</code><br><br>
 
-            or if copied from USB use:<br>
-            <code>sudo docker load < graphite.tar</code><br><br>
-
-            Then start the image by running:<br>
-
-            <code>sudo docker run -d   --name graphite   -p 80:80   -p 2003:2003   -p 8125:8125/udp   hopsoft/graphite-statsd</code>
+            Or if copied from USB run the following commands:<br>
+            <code>sudo docker load < graphite.tar</code><br>
+            <code>sudo docker run -d   --name graphite   -p 80:80   -p 2003:2003   -p 8125:8125/udp   mygraphite</code><br>
         </p>
 
         <p>
@@ -31,8 +29,16 @@
 
         <h2>Test results:</h2>
 
+        <p id="yesgraphite" style="display: none">
+            YES! You have successfully setup Graphite.
+        </p>
+
+        <p id="nographite" style="display: none">
+            FAIL! You have not setup Graphite (web) on port 80 and Graphite (Carbon) on port 2003.
+        </p>
+
         <p id="yespublish" style="display: none">
-            YES! You have successfully published metrics to Graphite.
+            YES! You have successfully published metrics to <a href="http://localhost/render?target=*.heap.used&format=json">Graphite</a>. Look at <a href="http://localhost/dashboard/">Graphite Dashboard</a> for graphing of published data.
         </p>
 
         <p id="nopublish" style="display: none">
@@ -71,31 +77,35 @@
                 xhr.send(null);
             }
 
-            analyze("http://localhost/", function(graphite) {
+            analyze("http://localhost/", function (graphite) {
 
-                if(graphite.length == 0) {
-                    alert("This test assumes you have setup graphite web interface on http://localhost:80")
+                if (graphite.length == 0) {
+                    document.querySelector("#nographite").style.display = "block";
                 } else {
-                    analyzeJSON("http://localhost/render?target=heap.used&format=json", function(metrics){
 
-                        if(metrics.length == 0){
-                            document.querySelector("#nopublish").style.display = "block";
-                        } else {
-                            var heap = metrics[0].target;
+                    if (graphite.indexOf("<title>Graphite Browser</title>") == -1) {
+                        document.querySelector("#nographite").style.display = "block";
+                    } else {
+                        document.querySelector("#yesgraphite").style.display = "block";
+                        analyzeJSON("http://localhost/render?target=heap.used&format=json", function (metrics) {
 
-                            if(!heap){
+                            if (metrics.length == 0) {
                                 document.querySelector("#nopublish").style.display = "block";
-                            }else {
-                                document.querySelector("#yespublish").style.display = "block";
-                                document.querySelector("#done").style.display = "block";
-                                document.querySelector("#video").innerHTML='<iframe width="420" height="315" src="https://www.youtube.com/embed/8To-6VIJZRE?autoplay=1" frameborder="0" allowfullscreen></iframe>';
+                            } else {
+                                var heap = metrics[0].target;
+
+                                if (!heap) {
+                                    document.querySelector("#nopublish").style.display = "block";
+                                } else {
+                                    document.querySelector("#yespublish").style.display = "block";
+                                    document.querySelector("#done").style.display = "block";
+                                    document.querySelector("#video").innerHTML = '<iframe width="420" height="315" src="https://www.youtube.com/embed/8To-6VIJZRE?autoplay=1" frameborder="0" allowfullscreen></iframe>';
+                                }
+
                             }
-
-                        }
-                    });
-
+                        });
+                    }
                 }
-
             });
 
         </script>
