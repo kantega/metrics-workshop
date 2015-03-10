@@ -4,7 +4,6 @@
 
     <link rel="stylesheet" href="/webjars/bootstrap/${versions.bootstrap}/css/bootstrap.css">
     <link rel="stylesheet" href="/webjars/bootstrap/${versions.bootstrap}/css/bootstrap-theme.css">
-    <link rel="stylesheet" href="/assets/metricsui/metricsui.css">
 
     <script src="/webjars/angularjs/${versions.angularjs}/angular.min.js"></script>
     <script src="/webjars/angularjs/${versions.angularjs}/angular-route.min.js"></script>
@@ -15,15 +14,12 @@
     <script src="/webjars/highcharts-ng/${versions.highcharts-ng}/highcharts-ng.min.js"></script>
     <script src="/webjars/highstock/${versions.highstock}/highstock.js"></script>
 
-    <script src="/assets/metricsui/metricsui.js"></script>
+    <script src="/assets/metricsui.js"></script>
 </head>
 <body>
 
 <div class="container" ng-controller="chartController">
-    <h1>Metrics UI</h1>
-    <div class="row">
-        <highchart id="chart1" config="chart1Config"></highchart>
-    </div>
+    <highchart id="chart1" config="chart1Config"></highchart>
 </div>
 
 <script src="/webjars/bootstrap/${versions.bootstrap}/js/bootstrap.min.js"></script>
