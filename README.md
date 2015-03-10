@@ -8,15 +8,22 @@ Metrics workshop at [Booster](http://www.boosterconf.no/) 2015.
 
 * Git 1.7.10+
 * Apache Maven 3.1.x
-* JVM 8.x
+* Java 8
 
-## Get it ##
+## Getting Started ##
 
-    git clone https://github.com/kantega/metrics-workshop.git
+* Download source as [ZIP](https://github.com/kantega/metrics-workshop/archive/master.zip) or clone it:
 
-or download the [ZIP](https://github.com/kantega/metrics-workshop/archive/master.zip).
+        git clone https://github.com/kantega/metrics-workshop.git
 
-## Usage ##
+* Download [Java JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
+* Set System Variable JAVA_HOME to install location of JDK.
+* (Optional) Install Maven by running Maven Wrapper:
+
+        (Windows)    mvnw.bat
+        (Linux/Mac)  ./mvnw
+
+## Starting workshop ##
 
 __Maven__
 
@@ -24,15 +31,11 @@ __Maven__
     cd webapp
     mvn jetty:run
 
-__Maven with remote debug (Recommended)__
+__Maven Wrapper__
 
-1. Run the following:
-
-        mvn clean install
-        cd webapp
-        mvnDebug jetty:run
-
-2. Attach a debugger to port 8000
+    mvnw(.bat) clean install
+    cd webapp
+    mvnw(.bat) jetty:run
 
 
 __IntelliJ IDEA & Maven__
