@@ -1,6 +1,7 @@
 
 package org.kantega.metrics.database;
 
+import com.codahale.metrics.MetricRegistry;
 import org.kantega.reststop.api.DefaultReststopPlugin;
 import org.kantega.reststop.api.Export;
 
@@ -15,7 +16,7 @@ public class DatabasePlugin
     @Export
     private final DataSource dataSource;
 
-    public DatabasePlugin() throws IOException {
+    public DatabasePlugin(MetricRegistry metricRegistry) throws IOException {
         dataSource = DbInitializer.initializeDatasource("jdbc:derby:memory:blogdb;create=true");
     }
 
