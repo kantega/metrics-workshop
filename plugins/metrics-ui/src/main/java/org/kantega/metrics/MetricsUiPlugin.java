@@ -22,7 +22,7 @@ public class MetricsUiPlugin extends DefaultReststopPlugin {
             protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
                 final Map<String, String> versions = webjarsVersions.getVersions();
                 resp.setContentType("text/html");
-                String html = IOUtils.toString(getClass().getResourceAsStream("index.html"), "utf-8");
+                String html = IOUtils.toString(getClass().getResourceAsStream("/index.html"), "utf-8");
                 for (String version : versions.keySet()) {
                     String prop = "${" + version + "}";
                     html = html.replace(prop, versions.get(version));
