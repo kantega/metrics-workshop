@@ -37,7 +37,13 @@ public class JdbcBlogDao implements BlogDao {
     }
 
     private List<Blog> getBlogsWhere(String wherePart, Object... params) {
-        return template.query("select * from blog " + wherePart +" order by blogname", new RowMapper<Blog>() {
+        StringBuilder sql = new StringBuilder("select * from blog");
+        if(wherePart != null && !wherePart.isEmpty()) {
+            sql.append(" ").append(wherePart);
+        }
+        sql.append(" order by blogname");
+
+        return template.query(sql.toString(), new RowMapper<Blog>() {
             @Override
             public Blog mapRow(ResultSet resultSet, int i) throws SQLException {
                 return getBlogFromResultSet(resultSet);

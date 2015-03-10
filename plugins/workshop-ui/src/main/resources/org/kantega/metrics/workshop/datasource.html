@@ -12,11 +12,79 @@
 
 <p>
     In <code>MetricsPreparedStatement.java</code>, override the executeQuery() method to time the execution of super.executeQuery. Register that time
-    in a timer named using the SQL query.
+    in a timer named using the SQL query. (For the SQL query "select * from blogs", your timer should be named "JDBC.query.select * from blogs")
 </p>
 
 
+<h2>Test results:</h2>
 
+<p id="yestimer" style="display: none">
+    YES! You have successfully created the counter <code>JDBC.query.select * from blog where order by blogname</code>. The current max time is <span class="maxtime"></span> seconds.
+</p>
+
+<p id="notimer" style="display: none">
+    FAIL! You have not yet created the timer <code>JDBC.query.select * from blog where order by blogname</code>.
+</p>
+
+<div id="done" style="display: none;">
+    <div id="video"></div>
+    <p></p>
+    <p>
+        Anyway, where is that Hardware Man? <a href=".">Next task</a>
+    </p>
+</div>
+
+<script>
+
+    function forEach(obj, each) {
+        for(var i = 0; i < obj.length; i++) {
+            each(obj[i]);
+        }
+    }
+    function analyze(url, ready) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url, false);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                ready(JSON.parse(xhr.responseText));
+            }
+        }
+        xhr.send(null);
+    }
+
+    analyze("/r/blogs", function() {
+        analyze("/metrics/", function (metrics) {
+
+            var found = false;
+            var timer;
+            for(var name in metrics.timers) {
+
+                if(metrics.timers.hasOwnProperty(name)) {
+                    if(name.indexOf("JDBC.query.select * from blog order by blogname") != -1) {
+                        found = true;
+                        timer = metrics.timers[name];
+                        break;
+                    }
+                }
+            }
+
+            if (!found) {
+                document.querySelector("#notimer").style.display = "block";
+            } else {
+                document.querySelector("#yestimer").style.display = "block";
+
+                forEach(document.querySelectorAll(".maxtime"), function (e) {
+                    e.innerText = timer.max;
+                });
+
+                document.querySelector("#done").style.display = "block";
+                document.querySelector("#video").innerHTML='<iframe width="420" height="315" src="https://www.youtube.com/embed/yJDv-zdhzMY?start=590&end=620&autoplay=1" frameborder="0" allowfullscreen></iframe>';
+
+            }
+        });
+    });
+
+</script>
 
 #end
 #parse("design.html")
