@@ -38,5 +38,10 @@
             <artifactId>commons-dbcp</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.kantega</groupId>
+            <artifactId>metrics-workshop-metrics</artifactId>
+        </dependency>
+
     </dependencies>
 </project>

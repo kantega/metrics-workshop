@@ -1,0 +1,22 @@
+#section("content")
+<h1 class="extruded">Timing your JDBC queries</h1>
+
+
+<p>
+    The DatabasePlugin in <code>plugins/database</code> exports a standard <code>javax.sql.DataSource</code>
+</p>
+
+<p>
+    Your first task is to wrap this DataSource in a MetricsDataSource and export that instead of the plain DataSource.
+</p>
+
+<p>
+    In <code>MetricsPreparedStatement.java</code>, override the executeQuery() method to time the execution of super.executeQuery. Register that time
+    in a timer named using the SQL query.
+</p>
+
+
+
+
+#end
+#parse("design.html")
