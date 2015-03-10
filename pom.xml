@@ -21,8 +21,8 @@
 
         <angularjs.version>1.3.14</angularjs.version>
         <angularjs-bootstrap.version>0.12.1</angularjs-bootstrap.version>
-        <hightcharts.version>4.0.4</hightcharts.version>
-        <hightcharts-ng.version>0.0.7</hightcharts-ng.version>
+        <highcharts.version>4.0.4</highcharts.version>
+        <highcharts-ng.version>0.0.7</highcharts-ng.version>
         <highstock.version>2.0.4</highstock.version>
         <bootstrap.version>3.3.2</bootstrap.version>
         <metrics.version>3.0.2</metrics.version>
@@ -95,7 +95,7 @@
             <dependency>
                 <groupId>org.webjars</groupId>
                 <artifactId>highcharts</artifactId>
-                <version>${hightcharts.version}</version>
+                <version>${highcharts.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.webjars</groupId>
@@ -105,7 +105,7 @@
             <dependency>
                 <groupId>org.webjars</groupId>
                 <artifactId>highcharts-ng</artifactId>
-                <version>${hightcharts-ng.version}</version>
+                <version>${highcharts-ng.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.webjars</groupId>
