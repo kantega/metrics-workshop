@@ -37,6 +37,7 @@ public class WorkshopUiPlugin extends DefaultReststopPlugin {
         templateServlet("jmx.html", "/workshop-ui/jmx");
         templateServlet("graphite.html", "/workshop-ui/graphite");
         templateServlet("datasource.html", "/workshop-ui/datasource");
+        templateServlet("advancedhighcharts.html", "/workshop-ui/advancedhighcharts");
 
         addServletFilter(reststop.createFilter(new SlowFilter(), "/r/*", FilterPhase.PRE_AUTHENTICATION));
 
