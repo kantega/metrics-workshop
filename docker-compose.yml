@@ -1,0 +1,15 @@
+graphite:
+  image: hopsoft/graphite-statsd
+  ports:
+    - "80:80"
+    - "2003:2003"
+    - "8125:8125/udp"
+
+maven:
+  #image: maven:3-jdk-8
+  build: .
+  ports:
+    - "8080:8080"
+  volumes:
+    - .:/usr/src/app
+
