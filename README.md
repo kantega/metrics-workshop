@@ -1,7 +1,5 @@
 # Metrics for Developers #
 
-## About ##
-
 Metrics workshop at [Booster](http://www.boosterconf.no/) 2015.
 
 ## Requirements ##
@@ -18,10 +16,6 @@ Metrics workshop at [Booster](http://www.boosterconf.no/) 2015.
 
 * Download [Java JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
 * Set System Variable JAVA_HOME to install location of JDK.
-* (Optional) Install Maven by running Maven Wrapper:
-
-        (Windows)    mvnw.bat
-        (Linux/Mac)  ./mvnw
 
 ## Starting workshop ##
 
@@ -35,13 +29,34 @@ Open up your favorite browser to [http://localhost:8080/workshop-ui/](http://loc
 
 __(alt 2) Maven Wrapper__
 
-    mvnw(.bat) clean install
-    cd webapp
-    mvnw(.bat) jetty:run
+1. Install Maven by running Maven Wrapper:
 
-Open up your favorite browser to [http://localhost:8080/workshop-ui/](http://localhost:8080/workshop-ui/).
+        (Windows)    mvnw.bat
+        (Linux/Mac)  ./mvnw
 
-__(alt 3) IntelliJ IDEA & Maven__
+2. Run:
+
+        mvnw(.bat) clean install
+        cd webapp
+        mvnw(.bat) jetty:run
+
+3. Open up your favorite browser to [http://localhost:8080/workshop-ui/](http://localhost:8080/workshop-ui/).
+
+__(alt 3) Docker Compose__
+
+1. Install Docker Compose:
+
+        pip install -U docker-compose
+
+2. Run:
+
+        docker-compose pull
+        docker-compose build
+        docker-compose up
+
+3. Open up your favorite browser to [http://localhost:8080/workshop-ui/](http://localhost:8080/workshop-ui/).
+
+__(alt 4) IntelliJ IDEA & Maven__
 
 1. Download and install [Maven](https://maven.apache.org/download.html)
 2. Download and install [IDEA](https://www.jetbrains.com/idea/download)
@@ -52,7 +67,7 @@ __(alt 3) IntelliJ IDEA & Maven__
 6. Open up your favorite browser to [http://localhost:8080/workshop-ui/](http://localhost:8080/workshop-ui/)
 
 
-__(alt 4) Eclipse (Luna required)__
+__(alt 5) Eclipse (Luna required)__
 
 1. Download and install [Eclipse IDE for Java EE Developers (Luna)](https://eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/lunar)
 2. Import -> Maven -> Existing Maven Projects
