@@ -87,7 +87,7 @@
                             <artifactId>metrics-workshop-workshop-ui</artifactId>
                             <version>${project.version}</version>
                         </plugin>
-                    <plugin>
+                        <plugin>
                             <groupId>org.kantega</groupId>
                             <artifactId>metrics-workshop-templates</artifactId>
                             <version>${project.version}</version>
@@ -117,11 +117,19 @@
                             <name>derby.stream.error.field</name>
                             <value>java.lang.System.err</value>
                         </systemProperty>
+                        <systemProperty>
+                            <name>pluginsXml</name>
+                            <value>${basedir}/target/reststop/plugins.xml</value>
+                        </systemProperty>
+                        <systemProperty>
+                            <name>configDir</name>
+                            <value>${basedir}/src/config</value>
+                        </systemProperty>
                     </systemProperties>
                     <webAppConfig>
-                        <overrideDescriptor>${basedir}/src/test/jetty/web-override.xml</overrideDescriptor>
                         <contextPath>/</contextPath>
                     </webAppConfig>
+                    <contextXml>${basedir}/src/test/jetty/context.xml</contextXml>
                 </configuration>
             </plugin>
             <plugin>

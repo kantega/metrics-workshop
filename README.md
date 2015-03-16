@@ -22,8 +22,7 @@ Metrics workshop at [Booster](http://www.boosterconf.no/) 2015.
 __(alt 1) Maven__
 
     mvn clean install
-    cd webapp
-    mvn jetty:run
+    mvn -f webapp/pom.xml jetty:run
 
 Open up your favorite browser to [http://localhost:8080/workshop-ui/](http://localhost:8080/workshop-ui/).
 
@@ -37,8 +36,7 @@ __(alt 2) Maven Wrapper__
 2. Run:
 
         mvnw(.bat) clean install
-        cd webapp
-        mvnw(.bat) jetty:run
+        mvnw(.bat) -f webapp/pom.xml jetty:run
 
 3. Open up your favorite browser to [http://localhost:8080/workshop-ui/](http://localhost:8080/workshop-ui/).
 
