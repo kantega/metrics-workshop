@@ -121,10 +121,6 @@
                             <name>pluginsXml</name>
                             <value>${basedir}/target/reststop/plugins.xml</value>
                         </systemProperty>
-                        <systemProperty>
-                            <name>configDir</name>
-                            <value>${basedir}/src/config</value>
-                        </systemProperty>
                     </systemProperties>
                     <webAppConfig>
                         <contextPath>/</contextPath>
