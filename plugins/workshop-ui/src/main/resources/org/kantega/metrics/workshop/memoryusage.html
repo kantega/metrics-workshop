@@ -53,64 +53,74 @@
 
 
         <iframe id="iframe" src="/metrics-ui/" width="800" height="500"></iframe>
-        <p id="yesgauge" style="display: none">
-            YES! You have successfully created the highchart html element.
-        </p>
 
-        <p id="nogauge" style="display: none">
-            FAIL! You have not yet created the highchart html element.
-        </p>
+        <div class="panel panel-default results" style="position: fixed;bottom:0; right:20px" id="testResultsApp">
+            <div class="panel-heading">
+                <div class="panel-title">Test results:</div>
+            </div>
+            <div class="panel-body" id="resultBody">
+                <p id="yesgauge" style="display: none">
+                    YES! You have successfully created the highchart html element.
+                </p>
 
-        <p id="yescharttype" style="display: none">
-            YES! You have successfully set the chart type to <strong>gauge</strong>.
-        </p>
+                <p id="nogauge" style="display: none">
+                    FAIL! You have not yet created the highchart html element.
+                </p>
 
-        <p id="nocharttype" style="display: none">
-            FAIL! You have not set the chart type <strong>gauge</strong> in your <code>$scope.gaugeConfig</code> object.
-        </p>
+                <p id="yescharttype" style="display: none">
+                    YES! You have successfully set the chart type to <strong>gauge</strong>.
+                </p>
 
-        <p id="yesdata" style="display: none">
-            YES! You have successfully added data to your chart.
-        </p>
+                <p id="nocharttype" style="display: none">
+                    FAIL! You have not set the chart type <strong>gauge</strong> in your
+                    <code>$scope.gaugeConfig</code> object.
+                </p>
 
-        <p id="wrongdata" style="display: none">
-            FAIL! You have some data, but are you sure it's the value from <code>heap.used</code>?
-        </p>
+                <p id="yesdata" style="display: none">
+                    YES! You have successfully added data to your chart.
+                </p>
 
-        <p id="nodata" style="display: none">
-            FAIL! You have not added any data to your chart.
-        </p>
+                <p id="wrongdata" style="display: none">
+                    FAIL! You have some data, but are you sure it's the value from <code>heap.used</code>?
+                </p>
 
-        <p id="toomuchdata" style="display: none">
-            FAIL! You have added to many data points to your chart, an Angular gauge is suppose to only have 1 data point.
-        </p>
+                <p id="nodata" style="display: none">
+                    FAIL! You have not added any data to your chart.
+                </p>
 
-        <p id="yesmax" style="display: none">
-            YES! You have successfully updated the yAxis in your chart.
-        </p>
+                <p id="toomuchdata" style="display: none">
+                    FAIL! You have added to many data points to your chart, an Angular gauge is suppose to only have
+                    1 data point.
+                </p>
 
-        <p id="nomax" style="display: none">
-            FAIL! You have not changed the yAxis in your chart.
-        </p>
+                <p id="yesmax" style="display: none">
+                    YES! You have successfully updated the yAxis in your chart.
+                </p>
 
-        <p id="yespane" style="display: none">
-            YES! You have successfully added a Speed-o-meter like pane to your chart.
-        </p>
+                <p id="nomax" style="display: none">
+                    FAIL! You have not changed the yAxis in your chart.
+                </p>
 
-        <p id="nopane" style="display: none">
-            FAIL! You have not changed the pane in your chart.
-        </p>
+                <p id="yespane" style="display: none">
+                    YES! You have successfully added a Speed-o-meter like pane to your chart.
+                </p>
 
+                <p id="nopane" style="display: none">
+                    FAIL! You have not changed the pane in your chart.
+                </p>
 
+                <div id="done" style="display: none;">
+                    <div id="video"></div>
+                    <p></p>
+                    <p>
+                        Transformers, move out to <a href="memory_over_time">Next task</a>, or make the chart even better by adding
+                        3 levels of <a href="http://api.highcharts.com/highcharts#xAxis.plotBands">plotBands</a> with different colors.
+                    </p>
+                </div>
 
-        <div id="done" style="display: none;">
-            <div id="video"></div>
-            <p></p>
-            <p>
-                Transformers, move out to <a href="memory_over_time">Next task</a>, or make the chart even better by adding
-                3 levels of <a href="http://api.highcharts.com/highcharts#xAxis.plotBands">plotBands</a> with different colors.
-            </p>
+            </div>
         </div>
+
 
 
         <script>
@@ -122,17 +132,19 @@
                 var iDocument = myIframe.contentWindow.document;
 
                 var gauge = iDocument.querySelector("#gauge");
-                var gaugeConfig = gauge.getAttribute("config");
 
-                if (gauge && gaugeConfig && gaugeConfig == "gaugeConfig") {
-                    document.querySelector("#yesgauge").style.display = "block";
-
-                    checkReady(iDocument);
-
-                } else {
+                if(gauge === undefined || gauge === null){
                     document.querySelector("#nogauge").style.display = "block";
+                } else {
+                    var gaugeConfig = gauge.getAttribute("config");
+                    if (gaugeConfig && gaugeConfig == "gaugeConfig") {
+                        document.querySelector("#yesgauge").style.display = "block";
+                        checkReady(iDocument);
+                    } else {
+                        document.querySelector("#nogauge").style.display = "block";
+                    }
                 }
-            }
+            };
 
             function hasClass(element, cls) {
                 return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
@@ -149,74 +161,79 @@
             function checkReady() {
                 var iDocument = myIframe.contentWindow.document;
                 var svg = iDocument.querySelector("#gauge svg").children;
-                if (svg.length < 10) {
-                    setTimeout("checkReady()", 300);
+                if (svg === undefined || svg === null) {
+                    document.querySelector("#nocharttype").style.display = "block";
                 } else {
 
-                    for(i=0; i < svg.length; i++){
-                        if(svg[i].nodeName.toLowerCase() === 'path'){
-                            var path = svg[i];
+                    if (svg.length < 10) {
+                        setTimeout("checkReady()", 300);
+                    } else {
+
+                        for (i = 0; i < svg.length; i++) {
+                            if (svg[i].nodeName.toLowerCase() === 'path') {
+                                var path = svg[i];
+                            }
                         }
-                    }
 
-                    if (path) {
-                        var d = path.getAttribute("d");
-                        if(d){
-                            if(d.indexOf("M 0 0") == -1 || d.indexOf("M 0 3") == -1){
-                                document.querySelector("#yescharttype").style.display = "block";
+                        if (path) {
+                            var d = path.getAttribute("d");
+                            if (d) {
+                                if (d.indexOf("M 0 0") == -1 || d.indexOf("M 0 3") == -1) {
+                                    document.querySelector("#yescharttype").style.display = "block";
 
-                                var label = getFirstElementContainingClass(svg, 'highcharts-data-labels');
-                                if(label){
-                                    if(label.children.length < 1){
-                                        document.querySelector("#nodata").style.display = "block";
+                                    var label = getFirstElementContainingClass(svg, 'highcharts-data-labels');
+                                    if (label) {
+                                        if (label.children.length < 1) {
+                                            document.querySelector("#nodata").style.display = "block";
 
-                                    } else if(label.children.length > 1){
-                                        document.querySelector("#toomuchdata").style.display = "block";
+                                        } else if (label.children.length > 1) {
+                                            document.querySelector("#toomuchdata").style.display = "block";
 
-                                    } else {
-                                        var num = label.children[0].textContent.replace(/[^\d\.\-\ ]/g, '');
-                                        if(num && num > 100000){
-                                            document.querySelector("#yesdata").style.display = "block";
+                                        } else {
+                                            var num = label.children[0].textContent.replace(/[^\d\.\-\ ]/g, '');
+                                            if (num && num > 100000) {
+                                                document.querySelector("#yesdata").style.display = "block";
 
-                                            var axis = getFirstElementContainingClass(svg, 'highcharts-axis');
-                                            if(axis.children.length > 5){
-                                                document.querySelector("#yesmax").style.display = "block";
-                                                var firstPath = axis.children[0].getAttribute("d");
-                                                if(firstPath.length > 60){
-                                                    document.querySelector("#yespane").style.display = "block";
-                                                    document.querySelector("#done").style.display = "block";
-                                                    document.querySelector("#video").innerHTML='<iframe width="420" height="315" src="https://www.youtube.com/embed/yCuDmJ5yNPw?autoplay=1" frameborder="0" allowfullscreen></iframe>';
+                                                var axis = getFirstElementContainingClass(svg, 'highcharts-axis');
+                                                if (axis.children.length > 5) {
+                                                    document.querySelector("#yesmax").style.display = "block";
+                                                    var firstPath = axis.children[0].getAttribute("d");
+                                                    if (firstPath.length > 60) {
+                                                        document.querySelector("#yespane").style.display = "block";
+                                                        document.querySelector("#done").style.display = "block";
+                                                        document.querySelector("#video").innerHTML = '<iframe width="420" height="315" src="https://www.youtube.com/embed/yCuDmJ5yNPw?autoplay=1" frameborder="0" allowfullscreen></iframe>';
+                                                    } else {
+                                                        document.querySelector("#nopane").style.display = "block";
+                                                    }
+
+
                                                 } else {
-                                                    document.querySelector("#nopane").style.display = "block";
+                                                    document.querySelector("#nomax").style.display = "block";
                                                 }
 
 
-                                            } else{
-                                                document.querySelector("#nomax").style.display = "block";
+                                            } else {
+                                                document.querySelector("#wrongdata").style.display = "block";
                                             }
-
-
-                                        } else {
-                                            document.querySelector("#wrongdata").style.display = "block";
                                         }
+
+                                    } else {
+                                        document.querySelector("#nodata").style.display = "block";
                                     }
 
+
                                 } else {
-                                    document.querySelector("#nodata").style.display = "block";
+                                    document.querySelector("#nocharttype").style.display = "block";
                                 }
-
-
                             } else {
                                 document.querySelector("#nocharttype").style.display = "block";
                             }
+
                         } else {
                             document.querySelector("#nocharttype").style.display = "block";
                         }
 
-                    } else {
-                        document.querySelector("#nocharttype").style.display = "block";
                     }
-
 
                 }
             }
