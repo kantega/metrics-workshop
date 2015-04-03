@@ -19,21 +19,33 @@
 
 </iframe>
 
+<div class="panel panel-default results" style="position: fixed;bottom:0; right:20px" id="testResultsApp">
+    <div class="panel-heading">
+        <div class="panel-title">Test results:</div>
+    </div>
+    <div class="panel-body" id="resultBody">
 
-<p id="yesdata" style="display: none;">
-    YES! After <span class="elapsed"></span> seconds you have added <span class="numdata">0</span> data points to your chart series
-</p>
-<p id="nodata" style="display: none">
-    FAIL! After <span class="elapsed"></span> seconds, you have added <span class="numdata">0</span> data points to your chart series
-</p>
+        <p id="yesdata" style="display: none;">
+            YES! After <span class="elapsed"></span> seconds you have added <span class="numdata">0</span> data points
+            to your chart series
+        </p>
 
-<div id="done" style="display: none;">
-    <div id="video"></div>
-    <p></p>
-    <p>
-        "WHO SAID SIT DOWN!!!!??!?!!!?" <a href="jmx">Next task</a>
-    </p>
+        <p id="nodata" style="display: none">
+            FAIL! After <span class="elapsed"></span> seconds, you have added <span class="numdata">0</span> data points
+            to your chart series
+        </p>
+
+        <div id="done" style="display: none;">
+            <div id="video"></div>
+            <p></p>
+
+            <p>
+                "WHO SAID SIT DOWN!!!!??!?!!!?" <a href="jmx">Next task</a>
+            </p>
+        </div>
+    </div>
 </div>
+
 <script>
 
     (function() {

@@ -15,24 +15,33 @@
     in a timer named using the SQL query. (For the SQL query "select * from blogs", your timer should be named "JDBC.query.select * from blogs")
 </p>
 
+<div class="panel panel-default results" style="position: fixed;bottom:0; right:20px" id="testResultsApp">
+    <div class="panel-heading">
+        <div class="panel-title">Test results:</div>
+    </div>
+    <div class="panel-body" id="resultBody">
 
-<h2>Test results:</h2>
+        <p id="yestimer" style="display: none">
+            YES! You have successfully created the counter <code>JDBC.query.select * from blog where order by
+            blogname</code>. The current max time is <span class="maxtime"></span> seconds.
+        </p>
 
-<p id="yestimer" style="display: none">
-    YES! You have successfully created the counter <code>JDBC.query.select * from blog where order by blogname</code>. The current max time is <span class="maxtime"></span> seconds.
-</p>
+        <p id="notimer" style="display: none">
+            FAIL! You have not yet created the timer <code>JDBC.query.select * from blog where order by blogname</code>.
+        </p>
 
-<p id="notimer" style="display: none">
-    FAIL! You have not yet created the timer <code>JDBC.query.select * from blog where order by blogname</code>.
-</p>
+        <div id="done" style="display: none;">
+            <div id="video"></div>
+            <p></p>
 
-<div id="done" style="display: none;">
-    <div id="video"></div>
-    <p></p>
-    <p>
-        Anyway, where is that Hardware Man? <a href=".">Next task</a>
-    </p>
+            <p>
+                Anyway, where is that Hardware Man? <a href=".">Next task</a>
+            </p>
+        </div>
+
+    </div>
 </div>
+
 
 <script>
 

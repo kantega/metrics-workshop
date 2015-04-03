@@ -27,30 +27,41 @@
         </p>
 
 
-        <h2>Test results:</h2>
+        <div class="panel panel-default results" style="position: fixed;bottom:0; right:20px" id="testResultsApp">
+            <div class="panel-heading">
+                <div class="panel-title">Test results:</div>
+            </div>
+            <div class="panel-body" id="resultBody">
 
-        <p id="yesgraphite" style="display: none">
-            YES! You have successfully setup Graphite.
-        </p>
+                <p id="yesgraphite" style="display: none">
+                    YES! You have successfully setup Graphite.
+                </p>
 
-        <p id="nographite" style="display: none">
-            FAIL! You have not setup Graphite (web) on port 80 and Graphite (Carbon) on port 2003.
-        </p>
+                <p id="nographite" style="display: none">
+                    FAIL! You have not setup Graphite (web) on port 80 and Graphite (Carbon) on port 2003.
+                </p>
 
-        <p id="yespublish" style="display: none">
-            YES! You have successfully published metrics to <a href="http://localhost/render?target=*.heap.used&format=json">Graphite</a>. Look at <a href="http://localhost/dashboard/">Graphite Dashboard</a> for graphing of published data.
-        </p>
+                <p id="yespublish" style="display: none">
+                    YES! You have successfully published metrics to <a
+                        href="http://localhost/render?target=*.heap.used&format=json">Graphite</a>. Look at <a
+                        href="http://localhost/dashboard/">Graphite Dashboard</a> for graphing of published data.
+                </p>
 
-        <p id="nopublish" style="display: none">
-            FAIL! You have not yet published metrics to Graphite.
-        </p>
+                <p id="nopublish" style="display: none">
+                    FAIL! You have not yet published metrics to Graphite.
+                </p>
 
-        <div id="done" style="display: none;">
-            <div id="video"></div>
-            <p></p>
-            <p>
-                Hello Mike. Hello Joe, want to learn <a href="http://en.wikipedia.org/wiki/Erlang_(programming_language)">Erlang</a> or maybe just <a href="."> choose one of the other 7</a>
-            </p>
+                <div id="done" style="display: none;">
+                    <div id="video"></div>
+                    <p></p>
+
+                    <p>
+                        Hello Mike. Hello Joe, want to learn <a
+                            href="http://en.wikipedia.org/wiki/Erlang_(programming_language)">Erlang</a> or maybe just
+                        <a href="."> choose one of the other 7</a>
+                    </p>
+                </div>
+            </div>
         </div>
 
 

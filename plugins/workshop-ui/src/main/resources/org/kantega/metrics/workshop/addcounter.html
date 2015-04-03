@@ -19,32 +19,43 @@
     Please name your counter <code>API.blogs</code>
 </p>
 
-<h2>Test results:</h2>
+<div class="panel panel-default results" style="position: fixed;bottom:0; right:20px" id="testResultsApp">
+    <div class="panel-heading">
+        <div class="panel-title">Test results:</div>
+    </div>
+    <div class="panel-body" id="resultBody">
 
-<p id="yescounter" style="display: none">
-    YES! You have successfully created the counter <code>API.blogs</code>. The current count is <span class="currentcount"></span>
-</p>
-<p id="nocounter" style="display: none">
-    FAIL! You have not yet created the counter <code>API.blogs</code>
-</p>
+        <p id="yescounter" style="display: none">
+            YES! You have successfully created the counter <code>API.blogs</code>. The current count is <span
+                class="currentcount"></span>
+        </p>
 
-<p id="yesinc" style="display: none">
-    YES! Your counter <code>API.blogs</code> increments by one for request. The current count is <span class="currentcount"></span>, the previous count was <span class="previouscount"></span>
-</p>
+        <p id="nocounter" style="display: none">
+            FAIL! You have not yet created the counter <code>API.blogs</code>
+        </p>
 
-<p id="noinc" style="display: none">
-    FAIL! Your counter <code>API.blogs</code> does not increment by one for each request. The current count is <span class="currentcount"></span>, the previous count was <span class="previouscount"></span>
-</p>
+        <p id="yesinc" style="display: none">
+            YES! Your counter <code>API.blogs</code> increments by one for request. The current count is <span
+                class="currentcount"></span>, the previous count was <span class="previouscount"></span>
+        </p>
+
+        <p id="noinc" style="display: none">
+            FAIL! Your counter <code>API.blogs</code> does not increment by one for each request. The current count is
+            <span class="currentcount"></span>, the previous count was <span class="previouscount"></span>
+        </p>
 
 
-<div id="done" style="display: none;">
-    <div id="video"></div>
-    <p></p>
-    <p>
-        We guess you've never seen such smooth scrolling! Hang on, 'scuse me just a second, <a href="timeblogposts">Next task</a>
-    </p>
+        <div id="done" style="display: none;">
+            <div id="video"></div>
+            <p></p>
+
+            <p>
+                We guess you've never seen such smooth scrolling! Hang on, 'scuse me just a second, <a
+                    href="timeblogposts">Next task</a>
+            </p>
+        </div>
+    </div>
 </div>
-
 
 
 <script>

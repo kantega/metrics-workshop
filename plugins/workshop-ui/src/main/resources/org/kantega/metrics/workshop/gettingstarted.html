@@ -13,39 +13,51 @@
     The blog application can be found <a href="/#/blogs" target="_blank">here</a>
 </p>
 
-<h2>Test results</h2>
-<p id="yesblog" style="display: none">
-    YES! You have successfully created the blog <span style="font-weight: bold" class="blogname"></span>
-</p>
-<p id="noblog" style="display: none">
-    FAIL! You have not yet created any blog
-</p>
+<div class="panel panel-default results" style="position: fixed;bottom:0; right:20px" id="testResultsApp">
+    <div class="panel-heading">
+        <div class="panel-title">Test results:</div>
+    </div>
+    <div class="panel-body" id="resultBody">
+        <p id="yesblog" style="display: none">
+            YES! You have successfully created the blog <span style="font-weight: bold" class="blogname"></span>
+        </p>
 
-<p id="yespost" style="display: none">
-    YES! You have successfully created the blog post <span style="font-weight: bold" class="blogposttitle"></span>
-</p>
-<p id="nopost" style="display: none">
-    FAIL! You have not yet created any blog post in <span style="font-weight: bold" class="blogname"></span>
-</p>
+        <p id="noblog" style="display: none">
+            FAIL! You have not yet created any blog
+        </p>
 
+        <p id="yespost" style="display: none">
+            YES! You have successfully created the blog post <span style="font-weight: bold"
+                                                                   class="blogposttitle"></span>
+        </p>
 
-<p id="yescomment" style="display: none">
-    YES! You have successfully added a comment to blog post <span style="font-weight: bold" class="blogposttitle"></span>
-    ( As <span style="font-weight: bold" class="commentauthor"></span> )
-</p>
-<p id="nocomment" style="display: none">
-    FAIL! You have not yet added any comment to the blog post <span style="font-weight: bold" class="blogposttitle"></span>
-</p>
+        <p id="nopost" style="display: none">
+            FAIL! You have not yet created any blog post in <span style="font-weight: bold" class="blogname"></span>
+        </p>
 
 
-<div id="done" style="display: none;">
-    <div id="video"></div>
-    <p></p>
-    <p>
-        There are never bugs in your code, right? <a href="addcounter">Next task</a>
-    </p>
+        <p id="yescomment" style="display: none">
+            YES! You have successfully added a comment to blog post <span style="font-weight: bold"
+                                                                          class="blogposttitle"></span>
+            ( As <span style="font-weight: bold" class="commentauthor"></span> )
+        </p>
+
+        <p id="nocomment" style="display: none">
+            FAIL! You have not yet added any comment to the blog post <span style="font-weight: bold"
+                                                                            class="blogposttitle"></span>
+        </p>
+
+
+        <div id="done" style="display: none;">
+            <div id="video"></div>
+            <p></p>
+
+            <p>
+                There are never bugs in your code, right? <a href="addcounter">Next task</a>
+            </p>
+        </div>
+    </div>
 </div>
-
 
 
 <script>
