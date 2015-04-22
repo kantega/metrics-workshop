@@ -3,6 +3,10 @@
 
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">
     <Call name="setInitParameter">
+        <Arg>applicationName</Arg>
+        <Arg>metrics-workshop</Arg>
+    </Call>
+    <Call name="setInitParameter">
         <Arg>plugins.xml</Arg>
         <Arg>
             <SystemProperty name="pluginsXml"/>
