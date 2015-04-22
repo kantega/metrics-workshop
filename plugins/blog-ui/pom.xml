@@ -43,5 +43,10 @@
             <artifactId>markdown-js</artifactId>
             <version>0.5.0-1</version>
         </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>

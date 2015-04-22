@@ -16,6 +16,10 @@
             <version>${reststop.version}</version>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -116,6 +120,10 @@
                         <systemProperty>
                             <name>derby.stream.error.field</name>
                             <value>java.lang.System.err</value>
+                        </systemProperty>
+                        <systemProperty>
+                            <name>configDir</name>
+                            <value>${basedir}/src/config</value>
                         </systemProperty>
                         <systemProperty>
                             <name>pluginsXml</name>
