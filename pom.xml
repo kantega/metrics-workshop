@@ -15,7 +15,7 @@
     </modules>
 
     <properties>
-        <reststop.version>1.11-SNAPSHOT</reststop.version>
+        <reststop.version>1.11</reststop.version>
         <derby.version>10.9.1.0</derby.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
