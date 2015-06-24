@@ -1,5 +1,5 @@
 #section("content")
-    <div class="row">
+    <div class="row" ng-app="Graphite" ng-controller="graphiteController" data-ng-init="check()">
         <h1 class="extruded">Publishing metrics to Graphite</h1>
 
         <p>
@@ -8,7 +8,7 @@
 
         <p>
             Graphite can be complex to setup. So for this task you should use <a target="_blank" href="https://docker.io">Docker</a>,
-            please follow the <a target="_blank" href="https://docs.docker.com/installation/">Installation</a> process for your system.
+            please follow the <a target="_blank" href="https://docs.docker.com/">Docker Engine Installation</a> process for your system.
         </p>
 
         <p>
@@ -26,6 +26,15 @@
             Finally you need to setup an Graphite Reporter in <code>MetricsPlugin.java</code>.
         </p>
 
+        <p>
+            If you are not running Linux, you need to update the IP address for checking Graphite. First find container id, then IP address
+            via:<br>
+            <code>sudo docker ps</code><br>
+            <code ng-non-bindable>sudo docker inspect --format &#39;&#123;&#123; .NetworkSettings.IPAddress &#125;&#125;&#39; CONTAINERID</code><br>
+
+            Graphite container IP address: <input ng-model="graphiteIP" ng-change="check()" ng-model-options="{debounce: 1000}" placeholder="{{graphiteIP}}"><br>
+            Published data prefix (if used): <input ng-model="graphitePrefix" ng-change="check()" ng-model-options="{debounce: 1000}" placeholder="{{graphitePrefix}}">
+        </p>
 
         <div class="panel panel-default results" style="position: fixed;bottom:0; right:20px" id="testResultsApp">
             <div class="panel-heading">
@@ -43,8 +52,8 @@
 
                 <p id="yespublish" style="display: none">
                     YES! You have successfully published metrics to <a
-                        href="http://localhost/render?target=*.heap.used&format=json">Graphite</a>. Look at <a
-                        href="http://localhost/dashboard/">Graphite Dashboard</a> for graphing of published data.
+                        href="{{url}}/render?target={{prefix}}heap.used&format=json">Graphite</a>. Look at <a
+                        href="{{url}}/dashboard/">Graphite Dashboard</a> for graphing of published data.
                 </p>
 
                 <p id="nopublish" style="display: none">
@@ -57,8 +66,8 @@
 
                     <p>
                         Hello Mike. Hello Joe, want to learn <a
-                            href="http://en.wikipedia.org/wiki/Erlang_(programming_language)">Erlang</a> or maybe just go to
-                        <a href="advancedhighcharts"> last task</a>
+                            href="http://en.wikipedia.org/wiki/Erlang_(programming_language)">Erlang</a> or maybe just
+                        go to the <a href="advancedhighcharts"> last task</a>
                     </p>
                 </div>
             </div>
@@ -66,58 +75,65 @@
 
 
         <script>
-            function analyze(url, ready) {
-                var xhr = new XMLHttpRequest();
-                xhr.open("GET", url, false);
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState == 4) {
-                        ready(xhr.responseText);
-                    }
-                };
-                xhr.send(null);
-            }
+            angular.module('Graphite', []).controller('graphiteController', function($scope, $http) {
+                $scope.graphiteIP = "127.0.0.1";
+                $scope.graphitePrefix = "";
+                $scope.prefix = "";
+                $scope.url = "http://"+$scope.graphiteIP;
 
-            function analyzeJSON(url, ready) {
-                var xhr = new XMLHttpRequest();
-                xhr.open("GET", url, false);
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState == 4) {
-                        ready(JSON.parse(xhr.responseText));
-                    }
-                };
-                xhr.send(null);
-            }
-
-            analyze("http://localhost/", function (graphite) {
-
-                if (graphite.length == 0) {
-                    document.querySelector("#nographite").style.display = "block";
-                } else {
-
-                    if (graphite.indexOf("<title>Graphite Browser</title>") == -1) {
-                        document.querySelector("#nographite").style.display = "block";
-                    } else {
-                        document.querySelector("#yesgraphite").style.display = "block";
-                        analyzeJSON("http://localhost/render?target=heap.used&format=json", function (metrics) {
-
-                            if (metrics.length == 0) {
-                                document.querySelector("#nopublish").style.display = "block";
-                            } else {
-                                var heap = metrics[0].target;
-
-                                if (!heap) {
-                                    document.querySelector("#nopublish").style.display = "block";
-                                } else {
-                                    document.querySelector("#yespublish").style.display = "block";
-                                    document.querySelector("#done").style.display = "block";
-                                    document.querySelector("#video").innerHTML = '<iframe src="//player.vimeo.com/video/16232844?autoplay=1" width="420" height="315" frameborder="0"></iframe>';
-                                }
-
-                            }
-                        });
-                    }
+                function analyzeJSON(url, ready) {
+                    console.log(url);
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", url, false);
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState == 4) {
+                            ready(JSON.parse(xhr.responseText));
+                        }
+                    };
+                    xhr.send(null);
                 }
-            });
+
+                $scope.check = function(s){
+
+                $http.get($scope.url).
+                    success(function(graphite, status, headers, config) {
+                        if (graphite.length == 0) {
+                            document.querySelector("#nographite").style.display = "block";
+                        } else {
+
+                            if (graphite.indexOf("<title>Graphite Browser</title>") == -1) {
+                                document.querySelector("#nographite").style.display = "block";
+                            } else {
+                                document.querySelector("#yesgraphite").style.display = "block";
+                                if ($scope.graphitePrefix && $scope.graphitePrefix.slice(-1) != ".") {
+                                    $scope.prefix = $scope.graphitePrefix+".";
+                                } else {
+                                    $scope.prefix = "";
+                                }
+                                analyzeJSON($scope.url+"/render?target="+$scope.prefix+"heap.used&format=json", function (metrics) {
+
+                                    if (metrics.length == 0) {
+                                        document.querySelector("#nopublish").style.display = "block";
+                                    } else {
+                                        var heap = metrics[0].target;
+
+                                        if (!heap) {
+                                            document.querySelector("#nopublish").style.display = "block";
+                                        } else {
+                                            document.querySelector("#yespublish").style.display = "block";
+                                            document.querySelector("#done").style.display = "block";
+                                            document.querySelector("#video").innerHTML = '<iframe src="//player.vimeo.com/video/16232844?autoplay=1" width="420" height="315" frameborder="0"></iframe>';
+                                        }
+
+                                    }
+                                });
+                            }
+                        }
+                    }).
+                    error(function(data, status, headers, config) {
+                    });
+                };
+            })
 
         </script>
 
