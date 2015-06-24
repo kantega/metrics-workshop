@@ -4,7 +4,6 @@ Metrics workshop at [Booster](http://www.boosterconf.no/) 2015.
 
 ## Requirements ##
 
-* Git 1.7.10+
 * [Apache Maven](http://maven.apache.org/) 3.1.x
 * Java 8
 
