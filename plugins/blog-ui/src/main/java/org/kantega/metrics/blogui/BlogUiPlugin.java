@@ -33,28 +33,6 @@ public class BlogUiPlugin
             }
         }, "/"));
 
-        addServletFilter(reststop.createServletFilter(new javax.servlet.http.HttpServlet() {
-            @Override
-            protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-                resp.setContentType("text/html");
-                final Map<String, String> versions = webjarsVersions.getVersions();
-                String html = IOUtils.toString(getClass().getResourceAsStream("/chart.html"), "utf-8");
-                for (String version : versions.keySet()) {
-                    String prop = "${" + version + "}";
-                    html = html.replace(prop, versions.get(version));
-                }
-
-                IOUtils.write(html, resp.getOutputStream());
-            }
-        }, "/chart.html"));
-
-        addServletFilter(reststop.createServletFilter(new javax.servlet.http.HttpServlet() {
-            @Override
-            protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-                resp.setContentType("text/javascript");
-                IOUtils.copy(getClass().getResourceAsStream("/chart.js"), resp.getOutputStream());
-            }
-        }, "/chart.js"));
     }
 
 }
