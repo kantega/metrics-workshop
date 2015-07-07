@@ -122,18 +122,21 @@
                             <value>java.lang.System.err</value>
                         </systemProperty>
                         <systemProperty>
-                            <name>configDir</name>
+                            <name>applicationName</name>
+                            <value>metrics-workshop</value>
+                        </systemProperty>
+                        <systemProperty>
+                            <name>pluginConfigurationDirectory</name>
                             <value>${basedir}/src/config</value>
                         </systemProperty>
                         <systemProperty>
-                            <name>pluginsXml</name>
+                            <name>plugins.xml</name>
                             <value>${basedir}/target/reststop/plugins.xml</value>
                         </systemProperty>
                     </systemProperties>
                     <webAppConfig>
                         <contextPath>/</contextPath>
                     </webAppConfig>
-                    <contextXml>${basedir}/src/test/jetty/context.xml</contextXml>
                 </configuration>
             </plugin>
             <plugin>
