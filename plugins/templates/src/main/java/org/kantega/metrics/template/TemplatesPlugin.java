@@ -2,10 +2,11 @@
 package org.kantega.metrics.template;
 
 import org.kantega.metrics.api.templates.TemplateRenderer;
-import org.kantega.reststop.api.DefaultReststopPlugin;
 import org.kantega.reststop.api.Export;
+import org.kantega.reststop.api.Plugin;
 
-public class TemplatesPlugin extends DefaultReststopPlugin {
+@Plugin
+public class TemplatesPlugin {
 
 
     @Export

@@ -2,23 +2,34 @@
 package org.kantega.metrics.blogui;
 
 import org.apache.commons.io.IOUtils;
-import org.kantega.reststop.api.DefaultReststopPlugin;
-import org.kantega.reststop.api.Reststop;
+import org.kantega.reststop.api.Export;
+import org.kantega.reststop.api.Plugin;
+import org.kantega.reststop.api.ServletBuilder;
 import org.kantega.reststop.webjars.WebjarsVersions;
 
+import javax.servlet.Filter;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-public class BlogUiPlugin
-    extends DefaultReststopPlugin
-{
+@Plugin
+public class BlogUiPlugin {
 
+    @Export
+    private final Filter indexFilter;
 
-    public BlogUiPlugin(Reststop reststop, WebjarsVersions webjarsVersions) {
-        addServletFilter(reststop.createServletFilter(new javax.servlet.http.HttpServlet() {
+    @Export
+    private final Filter chartFilter;
+
+    @Export
+    private final Filter chartJsFilter;
+
+    public BlogUiPlugin(final ServletBuilder servletBuilder, WebjarsVersions webjarsVersions) {
+
+        HttpServlet indexServlet = new javax.servlet.http.HttpServlet() {
             @Override
             protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
                 final Map<String, String> versions = webjarsVersions.getVersions();
@@ -31,9 +42,11 @@ public class BlogUiPlugin
 
                 IOUtils.write(html, resp.getOutputStream());
             }
-        }, "/"));
+        };
 
-        addServletFilter(reststop.createServletFilter(new javax.servlet.http.HttpServlet() {
+        indexFilter = servletBuilder.servlet(indexServlet, "/");
+
+        HttpServlet chartServlet = new javax.servlet.http.HttpServlet() {
             @Override
             protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
                 resp.setContentType("text/html");
@@ -46,15 +59,18 @@ public class BlogUiPlugin
 
                 IOUtils.write(html, resp.getOutputStream());
             }
-        }, "/chart.html"));
+        };
 
-        addServletFilter(reststop.createServletFilter(new javax.servlet.http.HttpServlet() {
+        chartFilter = servletBuilder.servlet(chartServlet, "/chart.html");
+
+        HttpServlet chartJsServlet = new javax.servlet.http.HttpServlet() {
             @Override
             protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
                 resp.setContentType("text/javascript");
                 IOUtils.copy(getClass().getResourceAsStream("/chart.js"), resp.getOutputStream());
             }
-        }, "/chart.js"));
-    }
+        };
 
+        chartJsFilter = servletBuilder.servlet(chartJsServlet, "/chart.js");
+    }
 }

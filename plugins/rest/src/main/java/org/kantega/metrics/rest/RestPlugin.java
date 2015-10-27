@@ -5,13 +5,23 @@ import com.codahale.metrics.MetricRegistry;
 import org.kantega.metrics.api.dao.BlogDao;
 import org.kantega.metrics.api.dao.BlogPostCommentDao;
 import org.kantega.metrics.api.dao.BlogPostDao;
-import org.kantega.reststop.jaxrsapi.DefaultJaxRsPlugin;
+import org.kantega.reststop.api.Export;
+import org.kantega.reststop.api.Plugin;
+import org.kantega.reststop.jaxrsapi.ApplicationBuilder;
 
-public class RestPlugin extends DefaultJaxRsPlugin {
+import javax.ws.rs.core.Application;
 
+@Plugin
+public class RestPlugin  {
 
-    public RestPlugin(BlogDao blogDao, BlogPostDao blogPostDao, BlogPostCommentDao blogPostCommentDao, MetricRegistry metricRegistry) {
-        addJaxRsSingletonResource(new BlogsResource(blogDao, blogPostDao, blogPostCommentDao, metricRegistry));
+    @Export
+    private final Application metricsApp;
+
+    public RestPlugin(BlogDao blogDao, BlogPostDao blogPostDao, BlogPostCommentDao blogPostCommentDao, MetricRegistry metricRegistry, ApplicationBuilder applicationBuilder) {
+
+        metricsApp = applicationBuilder.application()
+                .singleton(new BlogsResource(blogDao, blogPostDao, blogPostCommentDao, metricRegistry))
+                .build();
     }
 
 }

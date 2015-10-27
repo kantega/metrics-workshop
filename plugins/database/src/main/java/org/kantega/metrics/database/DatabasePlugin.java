@@ -2,16 +2,14 @@
 package org.kantega.metrics.database;
 
 import com.codahale.metrics.MetricRegistry;
-import org.kantega.reststop.api.DefaultReststopPlugin;
 import org.kantega.reststop.api.Export;
+import org.kantega.reststop.api.Plugin;
 
 import javax.sql.DataSource;
 import java.io.IOException;
 
-public class DatabasePlugin
-    extends DefaultReststopPlugin
-{
-
+@Plugin
+public class DatabasePlugin {
 
     @Export
     private final DataSource dataSource;

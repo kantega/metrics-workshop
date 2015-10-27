@@ -4,9 +4,10 @@ package org.kantega.metrics.workshop;
 import com.codahale.metrics.MetricRegistry;
 import org.kantega.metrics.api.ThreadLocalContext;
 import org.kantega.metrics.api.templates.TemplateRenderer;
-import org.kantega.reststop.api.DefaultReststopPlugin;
+import org.kantega.reststop.api.Export;
 import org.kantega.reststop.api.FilterPhase;
-import org.kantega.reststop.api.Reststop;
+import org.kantega.reststop.api.Plugin;
+import org.kantega.reststop.api.ServletBuilder;
 import org.kantega.reststop.webjars.WebjarsVersions;
 
 import javax.servlet.*;
@@ -17,14 +18,21 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Map;
 
-public class WorkshopUiPlugin extends DefaultReststopPlugin {
+@Plugin
+public class WorkshopUiPlugin {
 
-    private final Reststop reststop;
-    private final WebjarsVersions webjarsVersions;
-    private final TemplateRenderer templateRenderer;
+    @Export
+    private Filter slowFilter;
 
-    public WorkshopUiPlugin(Reststop reststop, WebjarsVersions webjarsVersions, TemplateRenderer templateRenderer, MetricRegistry metricRegistry) {
-        this.reststop = reststop;
+    @Export
+    private Filter jmxDetectorFilter;
+
+    private ServletBuilder servletBuilder;
+    private WebjarsVersions webjarsVersions;
+    private TemplateRenderer templateRenderer;
+
+    public WorkshopUiPlugin(final ServletBuilder servletBuilder, WebjarsVersions webjarsVersions, TemplateRenderer templateRenderer, MetricRegistry metricRegistry) {
+        this.servletBuilder = servletBuilder;
         this.webjarsVersions = webjarsVersions;
         this.templateRenderer = templateRenderer;
 
@@ -39,13 +47,13 @@ public class WorkshopUiPlugin extends DefaultReststopPlugin {
         templateServlet("datasource.html", "/workshop-ui/datasource");
         templateServlet("advancedhighcharts.html", "/workshop-ui/advancedhighcharts");
 
-        addServletFilter(reststop.createFilter(new SlowFilter(), "/r/*", FilterPhase.PRE_AUTHENTICATION));
+        slowFilter = servletBuilder.filter(new SlowFilter(), "/r/*", FilterPhase.PRE_AUTHENTICATION);
 
-        addServletFilter(reststop.createServletFilter(new JmxDetectorServlet(), "/jmxdetector"));
+        jmxDetectorFilter = servletBuilder.servlet(new JmxDetectorServlet(), "/jmxdetector");
     }
 
     private void templateServlet(String file, String path) {
-        addServletFilter(reststop.createServletFilter(new TemplateServlet(file), path));
+        servletBuilder.redirectServlet(file, path);
     }
 
     class TemplateServlet extends HttpServlet {

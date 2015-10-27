@@ -4,15 +4,13 @@ package org.kantega.metrics.dao;
 import org.kantega.metrics.api.dao.BlogDao;
 import org.kantega.metrics.api.dao.BlogPostCommentDao;
 import org.kantega.metrics.api.dao.BlogPostDao;
-import org.kantega.reststop.api.DefaultReststopPlugin;
 import org.kantega.reststop.api.Export;
+import org.kantega.reststop.api.Plugin;
 
 import javax.sql.DataSource;
 
-public class DaoPlugin
-    extends DefaultReststopPlugin
-{
-
+@Plugin
+public class DaoPlugin {
 
     @Export
     private final BlogDao blogDao;
