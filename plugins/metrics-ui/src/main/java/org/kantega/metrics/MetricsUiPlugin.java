@@ -3,6 +3,7 @@ package org.kantega.metrics;
 
 import org.apache.commons.io.IOUtils;
 import org.kantega.reststop.api.Export;
+import org.kantega.reststop.api.Plugin;
 import org.kantega.reststop.api.ServletBuilder;
 import org.kantega.reststop.webjars.WebjarsVersions;
 
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
+@Plugin
 public class MetricsUiPlugin {
 
     @Export
