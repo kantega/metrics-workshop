@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
 
 @Plugin
@@ -26,6 +28,9 @@ public class WorkshopUiPlugin {
 
     @Export
     private Filter jmxDetectorFilter;
+
+    @Export
+    private Collection<Filter> servlets = new ArrayList<>();
 
     private ServletBuilder servletBuilder;
     private WebjarsVersions webjarsVersions;
@@ -53,7 +58,8 @@ public class WorkshopUiPlugin {
     }
 
     private void templateServlet(String file, String path) {
-        servletBuilder.redirectServlet(file, path);
+        TemplateServlet templateServlet = new TemplateServlet(file);
+        servlets.add(servletBuilder.servlet(templateServlet, path));
     }
 
     class TemplateServlet extends HttpServlet {
