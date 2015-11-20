@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 public class MetricsPlugin {
 
     @Export
-    private Filter metricsFilter;
+    private final Filter metricsFilter = null;
 
     @Export
     private final MetricRegistry metricRegistry;

@@ -19,7 +19,7 @@ import java.util.Map;
 public class LoadUiPlugin {
 
     @Export
-    private Filter indexFilter;
+    private final Filter indexFilter;
 
     public LoadUiPlugin(final ServletBuilder servletBuilder, WebjarsVersions webjarsVersions) {
 

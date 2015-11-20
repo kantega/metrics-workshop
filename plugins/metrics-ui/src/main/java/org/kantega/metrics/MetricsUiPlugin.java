@@ -19,7 +19,7 @@ import java.util.Map;
 public class MetricsUiPlugin {
 
     @Export
-    private Filter indexFilter;
+    private final Filter indexFilter;
 
     public MetricsUiPlugin(final ServletBuilder servletBuilder, WebjarsVersions webjarsVersions) {
 

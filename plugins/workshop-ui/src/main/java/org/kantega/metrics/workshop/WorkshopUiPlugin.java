@@ -24,13 +24,13 @@ import java.util.Map;
 public class WorkshopUiPlugin {
 
     @Export
-    private Filter slowFilter;
+    private final Filter slowFilter;
 
     @Export
-    private Filter jmxDetectorFilter;
+    private final Filter jmxDetectorFilter;
 
     @Export
-    private Collection<Filter> servlets = new ArrayList<>();
+    private final Collection<Filter> servlets = new ArrayList<>();
 
     private ServletBuilder servletBuilder;
     private WebjarsVersions webjarsVersions;
